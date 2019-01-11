@@ -14,9 +14,19 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->timestamps();
-            
+            $table->string('name');
+            $table->text('body');
+            $table->decimal('price',8,2);
+            $table->integer('product_number')->default(random_int(100000,999999))->unsigned()->unique();
+            $table->integer('quantity')->unsigned();
+            $table->integer('category_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 
