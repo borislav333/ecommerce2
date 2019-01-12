@@ -18,3 +18,4 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 });*/
 
+//Route::get('api/prod','ProductController@getProdsByCategory');

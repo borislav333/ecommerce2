@@ -131,12 +131,57 @@
 <!-- /FOOTER -->
 
 <!-- jQuery Plugins -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/slick.min.js"></script>
-<script src="js/nouislider.min.js"></script>
-<script src="js/jquery.zoom.min.js"></script>
-<script src="js/main.js"></script>
 
+<script src="{{asset('js/jquery.min.js')}}"></script>
+<script src="{{asset('js/bootstrap.min.js')}}"></script>
+<script src="{{asset('js/slick.min.js')}}"></script>
+<script src="{{asset('js/nouislider.min.js')}}"></script>
+<script src="{{asset('js/jquery.zoom.min.js')}}"></script>
+<script src="{{asset('js/main.js')}}"></script>
+<script>
+    $(document).ready(function() {
+
+        @foreach(\App\Category::where('parent_id',null)->orderBy('name','DESC')->get() as $cat)
+        $("#li-cat-{{$cat->id}}").on('click',function () {
+
+            $.ajax({
+                type:'GET',
+                url:'/{cat}',
+                data:{cat:"{{$cat->id}}"},
+                success:function (res) {
+                    $('#prod-holder').html(res);
+                    //console.log(res)
+
+                },
+                error:function (err) {
+                    console.log(err)
+                }
+            })
+
+
+        })
+                @endforeach
+       {{-- $("#lilink").on('click',function () {
+
+            console.log(a)
+            $.ajax({
+                type:'GET',
+                url:'/{cat}',
+                data:{cat:'laptops'},
+                success:function (res) {
+                    $('#proddata').html(res);
+                    //console.log(res)
+
+                },
+                error:function (err) {
+                    console.log(err)
+                }
+            })
+
+
+        })--}}
+
+    });
+</script>
 </body>
 </html>

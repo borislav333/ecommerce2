@@ -1,4 +1,19 @@
 (function($) {
+	/*{{}}
+    $('#lilink').on('click',function () {
+        //window.location.href=document.location.href+'?category=laptops'
+		$.ajax({
+			type:'get',
+			url:"http://127.0.0.1:8000/prod",
+			success:function (res) {
+				console.log(res.data)
+            },
+			error:function (err) {
+				console.log(err)
+            }
+		})
+    })*/
+
 	"use strict"
 
 	// Mobile Nav toggle
@@ -164,5 +179,7 @@
 			handle ? priceInputMax.value = value : priceInputMin.value = value
 		});
 	}
+
+
 
 })(jQuery);

@@ -18,3 +18,8 @@ use Illuminate\Support\Facades\Route;
 });*/
 
 Route::get('/','ProductController@index');
+Route::get('/{cat}','ProductController@getNewProdsByCategory');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
