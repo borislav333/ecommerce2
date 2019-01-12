@@ -859,6 +859,7 @@ textarea.input {
   box-shadow: 0px 0px 0px 0px #E4E7ED, 0px 0px 0px 1px #E4E7ED;
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
+  width: 250px;display: inline-block;margin-left:5px
 }
 
 .product:hover {
@@ -871,7 +872,8 @@ textarea.input {
 }
 
 .product .product-img>img {
-  width: 100%;
+  /*width: 100%;*/
+  max-height: 200px;
 }
 
 .product .product-img .product-label {
@@ -1090,7 +1092,7 @@ textarea.input {
   position: absolute;
   left: 0px;
   top: 0px;
-  width: 60px;
+
 }
 
 .product-widget .product-img>img {

@@ -48,8 +48,10 @@
                 <li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
             </ul>
             <ul class="header-links pull-right">
-                <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
-                <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+
+                <li><a href="#"><i class="fa fa-dollar"></i> $USD</a></li>
+                <li><a href="{{url('/home')}}"><i class="fa fa-user-o"></i> My Account</a></li>
+                <a href="#" class="btn btn-danger ">ADMIN PANEL</a>
             </ul>
         </div>
     </div>
@@ -109,9 +111,9 @@
                             </a>
                             <div class="cart-dropdown">
                                 <div class="cart-list">
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img src="{{asset('img/product01.png')}}" alt="">
+                                    <div class="product-widget" style=";">
+                                        <div class="product-img" >
+                                            <img src="{{asset('img/product01.png')}}" class="shop-cart-img" alt="" style="width: 80px;height: 80px">
                                         </div>
                                         <div class="product-body">
                                             <h3 class="product-name"><a href="#">product name goes here</a></h3>

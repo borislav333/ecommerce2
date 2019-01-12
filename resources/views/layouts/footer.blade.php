@@ -146,7 +146,7 @@
 
             $.ajax({
                 type:'GET',
-                url:'/{cat}',
+                url:'/homeprod/{cat}',
                 data:{cat:"{{$cat->id}}"},
                 success:function (res) {
                     $('#prod-holder').html(res);

@@ -11,12 +11,12 @@ class ProductController extends Controller
 {
     public function index(){
 
-        $lastProducts=Product::where('category_id',2)->get();
+        $lastProducts=Product::orderBy('created_at','DESC')->get();
         $p_categories=Category::where('parent_id',null)->orderBy('name','DESC')->get();
 
-        if(Input::get('cat')==='laptops'){
+        /*if(Input::get('cat')==='laptops'){
             $lastProducts=$lastProducts->where('id',2);
-        }
+        }*/
 
         return view('layouts.products',['products'=>$lastProducts,'p_categories'=>$p_categories]);
     }
@@ -25,15 +25,21 @@ class ProductController extends Controller
         //$lastProducts=Product::where('category_id',2)->get();
         $catId=Input::get('cat');
         $lastProducts=[];
-        $catt=Category::where('id',$catId)->get()[0]->children()->get()/*[0]->products()->get()[0]->name*/;
+        $catt=Category::where('id',$catId)->get()[0]->children()->latest()->get()/*[0]->products()->get()[0]->name*/;
         foreach ($catt as $cat){
             foreach ($cat->products()->get() as $prod){
                 $lastProducts[]=$prod;
             }
         }
 
-        //dd(Input::get('cat'));
+        function sortProducts($a,$b){
+            return ($a <=> $b);
+        }
+        usort($lastProducts,"sortProducts");
+        //dd($lastProducts);
 
-        return view('prod',['products'=>$lastProducts]);
+        return view('ajax_view.homeprod',['products'=>$lastProducts]);
     }
+
+
 }

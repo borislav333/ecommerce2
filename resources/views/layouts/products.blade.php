@@ -94,18 +94,24 @@
                             @foreach($products as $prod)
 
                                 <!-- product -->
-                                    <div class="product" style="width: 250px;display: inline-block;margin-left:5px">
-                                        <div class="product-img" style="max-width: 200px;margin:0 auto;">
+                                    <div class="product" style="">
+                                        <div class="product-img text-center" >
                                             <img src="{{asset('images'.$prod->head_image)}}" alt="" height="200"  >
                                             <div class="product-label">
-                                                <span class="sale">-30%</span>
+                                                @if($prod->discount>0)
+                                                    <span class="sale">-{{$prod->discount}}%</span>
+                                                    @endif
+
                                                 <span class="new">NEW</span>
                                             </div>
                                         </div>
                                         <div class="product-body">
                                             <p class="product-category">{{$prod->category()->get()[0]->name}}</p>
                                             <h3 class="product-name"><a href="#">{{$prod->name}}</a></h3>
-                                            <h4 class="product-price">${{$prod->price}} <del class="product-old-price">${{$prod->price}}</del></h4>
+                                            <h4 class="product-price">${{$prod->newprice}}
+                                                @if($prod->discount>0)
+                                                <del class="product-old-price">${{$prod->price}}</del></h4>
+                                            @endif
                                             <div class="product-rating">
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
