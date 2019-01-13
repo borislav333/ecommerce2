@@ -22,10 +22,9 @@ class ProductController extends Controller
     }
     public function getNewProdsByCategory(){
 
-        //$lastProducts=Product::where('category_id',2)->get();
         $catId=Input::get('cat');
         $lastProducts=[];
-        $catt=Category::where('id',$catId)->get()[0]->children()->latest()->get()/*[0]->products()->get()[0]->name*/;
+        $catt=Category::where('id',$catId)->get()[0]->children()->latest()->get();
         foreach ($catt as $cat){
             foreach ($cat->products()->get() as $prod){
                 $lastProducts[]=$prod;

@@ -9,6 +9,11 @@
             <!-- Text input-->
 
             <!-- Text input-->
+            @if(\Illuminate\Support\Facades\Session::has('addedProd'))
+                <div class="alert alert-success" role="alert">
+                    {{\Illuminate\Support\Facades\Session::get('addedProd')}}
+                </div>
+                @endif
             <form class="form-horizontal" method="post" action="/createProduct/add" enctype="multipart/form-data">
                 @csrf
             <div class="form-group">

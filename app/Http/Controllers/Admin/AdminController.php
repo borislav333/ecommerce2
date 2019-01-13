@@ -41,50 +41,40 @@ class AdminController extends Controller
                 ->withInput();
         };
           //dd($request->productimg[0]->getClientOriginalName());
-        $newProduct = new Product(['name' => $request->name, 'descr' => $request->descr, 'price' => $request->price,
-            'quantity' => $request->quantity, 'discount' => $request->discount,'head_image'=>$request->head_image->getClientOriginalName(),
-            'category_id' => $request->category_id, 'user_id' => auth()->id()]);
 
-        foreach ($request->productimg as $img){
-            $newImage[] = new Image(['source' => $request->productimg[0]->getClientOriginalName(), 'position' => 0, 'product_id' => $newProduct->id]);
-        }
         DB::beginTransaction();
 
         try {
+            $nameImg=null;
+            if($request->hasFile('head_image')){
+                $img=$request->file('head_image');
+                $nameImg=(string)str_random(5).$img->getClientOriginalName();
+                $img->move(public_path().'/images/head_img/', $nameImg);
+            }
             $newProduct = new Product(['name' => $request->name, 'descr' => $request->descr, 'price' => $request->price,
-                'quantity' => $request->quantity, 'discount' => $request->discount,'head_image'=>$request->head_image->getClientOriginalName(),
+                'quantity' => $request->quantity, 'discount' => $request->discount,'head_image'=>$nameImg,
                 'category_id' => $request->category_id, 'user_id' => auth()->id()]);
             $newProduct->save();
-            foreach ($request->productimg as $key=>$img){
-                $newImage[$key] = new Image(['source' => $request->productimg[0]->getClientOriginalName(), 'position' => 0, 'product_id' => $newProduct->id]);
-                $newImage[$key]->save();
+            if($request->hasfile('productimg'))
+            {
+
+                foreach($request->file('productimg') as $key=>$img)
+                {
+                    $name=str_random(5).$img->getClientOriginalName();
+                    $img->move(public_path().'/images/other_img/', $name);
+                    //$data[] = $name;
+                    $newImage[$key] = new Image(['source' => $name, 'position' => 0, 'product_id' => $newProduct->id]);
+                    $newImage[$key]->save();
+                }
             }
-
-
             DB::commit();
+            return redirect()->back()->with('addedProd','Your product has been addded!');
         }
         catch (\Exception $e){
             DB::rollBack();
             return $e->getMessage();
 
         }
-
-    /*    DB::transaction(function()
-        {
-
-
-/*
-            $images = User::create([
-                'username' => Input::get('username'),
-                'account_id' => $newAcct->id,
-            ]);
-
-            if(!$newProduct){
-                throw new \Exception('I can\'t add new product,error happened! ');
-            }
-            if(!$images){
-                throw new \Exception('I can\'t add new images,error happened! ');
-            }*/
 
     }
 }
