@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/','ProductController@index');
 Route::get('/homeprod/{cat}','ProductController@getNewProdsByCategory');
 
+Route::post('/createProduct/add','Admin\AdminController@addNewProduct');
 Auth::routes();
 Route::get('/admin','Admin\AdminController@index');
 Route::get('/createProduct','Admin\AdminController@createProduct');

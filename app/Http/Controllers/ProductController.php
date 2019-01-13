@@ -32,10 +32,12 @@ class ProductController extends Controller
             }
         }
 
-        function sortProducts($a,$b){
-            return ($a <=> $b);
-        }
-        usort($lastProducts,"sortProducts");
+
+        usort($lastProducts,function ($a,$b){
+            return $b->created_at <=> $a->created_at;
+        });
+
+        //dd($lastProducts[0]->created_at);
         //dd($lastProducts);
 
         return view('ajax_view.homeprod',['products'=>$lastProducts]);

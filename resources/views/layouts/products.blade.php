@@ -84,7 +84,7 @@
 
             <!-- Products tab & slick -->
             <div class="col-md-12">
-                <div class="row" id="prod-holder" >
+                <div class="row text-center" id="prod-holder" >
 
                         <!-- tab -->
 
@@ -92,11 +92,13 @@
                             <div class="" data-nav="#slick-nav-1" >--}}
 
                             @foreach($products as $prod)
-
+                                @if($loop->iteration>4)
+                                    @break;
+                                    @endif
                                 <!-- product -->
                                     <div class="product" style="">
                                         <div class="product-img text-center" >
-                                            <img src="{{asset('images'.$prod->head_image)}}" alt="" height="200"  >
+                                            <img src="{{asset('images/'.$prod->head_image)}}" alt="" height="200"  >
                                             <div class="product-label">
                                                 @if($prod->discount>0)
                                                     <span class="sale">-{{$prod->discount}}%</span>

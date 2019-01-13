@@ -1,6 +1,8 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+{{--<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>--}}
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 <!------ Include the above in your HEAD tag ---------->
 
 <nav class="navbar navbar-default navbar-static-top">
@@ -74,7 +76,6 @@
     <footer class="pull-left footer">
         <p class="col-md-12">
         <hr class="divider">
-        Copyright &COPY; 2015 <a href="http://www.pingpong-labs.com">Gravitano</a>
         </p>
     </footer>
 </div>

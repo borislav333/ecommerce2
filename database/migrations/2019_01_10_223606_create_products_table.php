@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->text('body');
             $table->decimal('price',8,2);
-            $table->integer('product_number')->default(random_int(100000,999999))->unsigned()->unique();
+            /*$table->integer('product_number')->default(rand(10000,99999))->unsigned()->unique();*/
             $table->string('head_image');
             $table->integer('quantity')->unsigned();
             $table->integer('category_id')->unsigned();

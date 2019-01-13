@@ -1,9 +1,11 @@
 @foreach($products as $prod)
-
+    @if($loop->iteration>4)
+        @break;
+    @endif
     <!-- product -->
     <div class="product" style="">
         <div class="product-img text-center" >
-            <img src="{{asset('images'.$prod->head_image)}}" alt="" height="200"  >
+            <img src="{{asset('images/'.$prod->head_image)}}" alt="" height="200"  >
             <div class="product-label">
                 @if($prod->discount>0)
                     <span class="sale">-{{$prod->discount}}%</span>
@@ -15,7 +17,10 @@
         <div class="product-body">
             <p class="product-category">{{$prod->category()->get()[0]->name}}</p>
             <h3 class="product-name"><a href="#">{{$prod->name}}</a></h3>
-            <h4 class="product-price">${{$prod->newprice}} <del class="product-old-price">${{$prod->price}}</del></h4>
+            <h4 class="product-price">${{$prod->newprice}}
+                @if($prod->discount>0)
+                    <del class="product-old-price">${{$prod->price}}</del></h4>
+            @endif
             <div class="product-rating">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
