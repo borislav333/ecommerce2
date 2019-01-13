@@ -13,9 +13,9 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->state(\App\Category::class,'child', function (Faker $faker) {
+$factory->define(\App\Category::class, function (Faker $faker) {
     return [
-         'name' => $faker->name,
-        'parent_id' => \App\Category::all()->random()->id,
+        'name' => $faker->name,
+        'parent_id' => null,
     ];
 });
