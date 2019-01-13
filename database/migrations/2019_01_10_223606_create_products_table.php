@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('name');
+            $table->string('slug')->unique();
             $table->text('body');
             $table->decimal('price',8,2);
             /*$table->integer('product_number')->default(rand(10000,99999))->unsigned()->unique();*/
@@ -28,6 +29,7 @@ class CreateProductsTable extends Migration
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('category_id')->references('id')->on('categories');
+
         });
     }
 

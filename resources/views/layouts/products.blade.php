@@ -98,7 +98,7 @@
                                 <!-- product -->
                                     <div class="product" style="">
                                         <div class="product-img text-center" >
-                                            <img src="{{asset('images/'.$prod->head_image)}}" alt="" height="200"  >
+                                            <img src="{{asset('images/head_img/'.$prod->head_image)}}" alt="" height="200" >
                                             <div class="product-label">
                                                 @if($prod->discount>0)
                                                     <span class="sale">-{{$prod->discount}}%</span>
@@ -108,8 +108,12 @@
                                             </div>
                                         </div>
                                         <div class="product-body">
-                                            <p class="product-category">{{$prod->category()->get()[0]->name}}</p>
-                                            <h3 class="product-name"><a href="#">{{$prod->name}}</a></h3>
+                                            <p class="product-category">{{$prod->category->name}}</p>
+                                            <h3 class="product-name">
+                                                <a href="{{route('getCurrentProduct',['category'=>$prod->category->slug,'product'=>$prod->slug])}}">
+                                                    {{$prod->name}}
+                                                </a>
+                                            </h3>
                                             <h4 class="product-price">${{$prod->newprice}}
                                                 @if($prod->discount>0)
                                                 <del class="product-old-price">${{$prod->price}}</del></h4>
@@ -388,7 +392,7 @@
     <!-- container -->
     <div class="container">
         <!-- row -->
-        <div class="row">
+        {{--<div class="row">
             <div class="col-md-4 col-xs-6">
                 <div class="section-title">
                     <h4 class="title">Top selling</h4>
@@ -670,7 +674,7 @@
                 </div>
             </div>
 
-        </div>
+        </div>--}}
         <!-- /row -->
     </div>
     <!-- /container -->

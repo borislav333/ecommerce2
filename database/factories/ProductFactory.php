@@ -14,13 +14,17 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(\App\Product::class, function (Faker $faker) {
+    $name=$faker->name;
+    $catid=\App\Category::where('parent_id',null)->get()->random()->id;
+
     return [
-        'name' => $faker->name,
+        'name' => $name,
+        'slug'=>str_slug($name),
         'descr' => $faker->text,
         'price'=>$faker->randomFloat(8,2,2),
-        'head_image'=>/*'img'.$faker->randomNumber(2)*/'head_img/1.jpg',
+        'head_image'=>/*'img'.$faker->randomNumber(2)*/'1.jpg',
         'quantity'=>$faker->randomNumber(3),
-        'category_id'=>\App\Category::all()->random()->id,
+        'category_id'=>$catid,
         'user_id'=>\App\User::all()->random()->id,
         'discount'=>$faker->randomDigit
     ];

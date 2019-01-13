@@ -872,7 +872,7 @@ textarea.input {
 }
 
 .product .product-img>img {
-  /*width: 100%;*/
+  max-width: 250px;
   max-height: 200px;
 }
 

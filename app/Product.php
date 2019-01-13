@@ -12,10 +12,18 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function categories(){
+        return $this->belongsToMany(Category::class,'category_product','product_id','category_id');
+    }
     public function getNewPriceAttribute(){
         return $this->price*((100-$this->discount)/100);
     }
     public function images(){
-        $this->hasMany(Image::class);
+        return $this->hasMany(Image::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

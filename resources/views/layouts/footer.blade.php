@@ -138,15 +138,16 @@
 <script src="{{asset('js/nouislider.min.js')}}"></script>
 <script src="{{asset('js/jquery.zoom.min.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
+
+{{--Home Page get new products ajax request  --}}
 <script>
     $(document).ready(function() {
-
         @foreach(\App\Category::where('parent_id',null)->orderBy('name','DESC')->get() as $cat)
         $("#li-cat-{{$cat->id}}").on('click',function () {
 
             $.ajax({
                 type:'GET',
-                url:'/homeprod/{cat}',
+                url:/*document.location.origin+*/'/homeprod/{cat}',
                 data:{cat:"{{$cat->id}}"},
                 success:function (res) {
                     $('#prod-holder').html(res);
@@ -161,25 +162,6 @@
 
         })
                 @endforeach
-       {{-- $("#lilink").on('click',function () {
-
-            console.log(a)
-            $.ajax({
-                type:'GET',
-                url:'/{cat}',
-                data:{cat:'laptops'},
-                success:function (res) {
-                    $('#proddata').html(res);
-                    //console.log(res)
-
-                },
-                error:function (err) {
-                    console.log(err)
-                }
-            })
-
-
-        })--}}
 
     });
 </script>

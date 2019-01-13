@@ -29,7 +29,7 @@
                 <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="http://www.pingpong-labs.com" target="_blank">Visit Site</a></li>
+                <li><a href="{{route('index')}}" target="_blank">Visit Site</a></li>
                 <li class="dropdown ">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         Account
@@ -50,11 +50,16 @@
 <div class="container-fluid main-container">
     <div class="col-md-2 sidebar">
         <ul class="nav nav-pills nav-stacked">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="{{url('/createProduct')}}">Create new product</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
+            <li class="{{ (\Illuminate\Support\Facades\Request::is('admin')) ? 'active' : '' }}">
+                <a href="{{route('adminIndex')}}">Home</a>
+            </li>
+            <li class="{{ (\Illuminate\Support\Facades\Request::is('createProduct')) ? 'active' : '' }}">
+                <a href="{{route('createProductView')}}">Create new product</a>
+            </li>
+            <li class="">
+                <a href="#">Link</a>
+            </li>
+
         </ul>
     </div>
     <div class="col-md-10 content">

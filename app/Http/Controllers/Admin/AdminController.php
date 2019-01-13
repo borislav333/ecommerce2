@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\CategoryProduct;
 use App\Image;
 use App\Product;
 use Illuminate\Http\Request;
@@ -12,11 +13,18 @@ use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
-    public function index(){
-        return view('admin.display');
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
 
-    public function createProduct(){
+    public function index(){
+        $products=Product::paginate(10);
+        //dd($products);
+        return view('admin.display',['products'=>$products]);
+    }
+
+    public function createProductView(){
         $categories=Category::orderBy('name','DESC')->get();
         return view('admin.createproduct',['categories'=>$categories]);
     }
@@ -24,7 +32,7 @@ class AdminController extends Controller
 
         //dd($request->all());
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|min:2|max:255',
+            'name' => 'required|string|unique:products|min:2|max:255',
             'descr' => 'required|string|min:10',
             'price'=>'required|numeric|regex:/^\d*(\.\d{1,2})?$/',
             'quantity'=>'required|integer',
@@ -51,10 +59,18 @@ class AdminController extends Controller
                 $nameImg=(string)str_random(5).$img->getClientOriginalName();
                 $img->move(public_path().'/images/head_img/', $nameImg);
             }
-            $newProduct = new Product(['name' => $request->name, 'descr' => $request->descr, 'price' => $request->price,
+            $newProduct = new Product(['name' => $request->name,'slug'=>str_slug($request->name), 'descr' => $request->descr, 'price' => $request->price,
                 'quantity' => $request->quantity, 'discount' => $request->discount,'head_image'=>$nameImg,
                 'category_id' => $request->category_id, 'user_id' => auth()->id()]);
             $newProduct->save();
+
+            $checkIfPivotExists=CategoryProduct::where('category_id',$newProduct->category_id)->where('product_id',$newProduct->id)->exists();
+           // dd($checkIfPivotExists);
+
+            $newCategoryProduct=new CategoryProduct(['category_id'=>$newProduct->category_id,'product_id'=>$newProduct->id]);
+
+            $newCategoryProduct->save();
+
             if($request->hasfile('productimg'))
             {
 
@@ -77,4 +93,9 @@ class AdminController extends Controller
         }
 
     }
+
+    public function editProduct(){
+
+    }
+
 }

@@ -14,8 +14,10 @@ use Faker\Generator as Faker;
 */
 
 $factory->state(\App\Category::class,'child', function (Faker $faker) {
+    $name=$faker->name;
     return [
-         'name' => $faker->name,
+         'name' => $name,
+        'slug'=>str_slug($name),
         'parent_id' => \App\Category::all()->random()->id,
     ];
 });

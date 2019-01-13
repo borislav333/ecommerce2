@@ -14,7 +14,7 @@
                     {{\Illuminate\Support\Facades\Session::get('addedProd')}}
                 </div>
                 @endif
-            <form class="form-horizontal" method="post" action="/createProduct/add" enctype="multipart/form-data">
+            <form class="form-horizontal" method="post" action="{{route('addNewProduct')}}" enctype="multipart/form-data">
                 @csrf
             <div class="form-group">
 
