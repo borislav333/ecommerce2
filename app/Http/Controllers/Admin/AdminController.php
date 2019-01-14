@@ -20,7 +20,6 @@ class AdminController extends Controller
 
     public function index(){
         $products=Product::paginate(10);
-        //dd($products);
         return view('admin.display',['products'=>$products]);
     }
 
