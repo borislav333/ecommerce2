@@ -28,6 +28,11 @@ Route::post('/createProduct/add','Admin\AdminController@addNewProduct')->name('a
 Route::get('/createProduct','Admin\AdminController@createProductView')->name('createProductView');
 Route::get('/admin','Admin\AdminController@index')->name('adminIndex');
 Route::get('/{category}/{product}','ProductController@getCurrentProduct')->name('getCurrentProduct');
+Route::get('/{category}/{product}/edit','Admin\AdminController@editProductView')->name('editProduct');
+Route::post('/{category}/{product}/update','Admin\AdminController@updateProduct')->name('updateProduct');
+Route::post('/removeimg/{imgid}','Admin\AdminController@removeCurrentImage')->name('removeCurrentImage');
+Route::post('/positionupdate/{imgid}/{position}','Admin\AdminController@updatePosition')->name('updatePosition');
+Route::delete('/deleteproduct/{productslug}','Admin\AdminController@deleteProduct')->name('deleteProduct');
 /*Route::patch('/admin/products/{category}/{productid}','')*/
 
 

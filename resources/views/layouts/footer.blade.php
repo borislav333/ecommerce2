@@ -141,29 +141,28 @@
 
 {{--Home Page get new products ajax request  --}}
 <script>
+
     $(document).ready(function() {
-        @foreach(\App\Category::where('parent_id',null)->orderBy('name','DESC')->get() as $cat)
-        $("#li-cat-{{$cat->id}}").on('click',function () {
 
-            $.ajax({
-                type:'GET',
-                url:/*document.location.origin+*/'/homeprod/{cat}',
-                data:{cat:"{{$cat->id}}"},
-                success:function (res) {
-                    $('#prod-holder').html(res);
-                    //console.log(res)
+        $("#addimg").click(function () {
+            $(".addfile:last").append("" +
+                "<div class=\"addfile\" style=\"width: 400px; margin:0 auto;\">\n" +
+                "                    <input type=\"file\" name=\"productimg[]\" class=\"productimg form-control\">\n" +
+                "                    <div class=\"input-group-btn\">\n" +
+                "                        <button class=\"removeimg btn btn-danger\" type=\"button\"><i class=\"glyphicon glyphicon-remove\"></i> Remove</button>\n" +
+                "                    </div>\n" +
+                "\n" +
+                "                </div>");
 
-                },
-                error:function (err) {
-                    console.log(err)
-                }
-            })
+        });
 
+        $(document).on('click', '.removeimg', function () {
 
+            $(this).parent().parent().remove();
         })
-                @endforeach
 
-    });
+
+    })
 </script>
 </body>
 </html>

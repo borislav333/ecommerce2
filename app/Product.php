@@ -19,7 +19,7 @@ class Product extends Model
         return $this->price*((100-$this->discount)/100);
     }
     public function images(){
-        return $this->hasMany(Image::class);
+        return $this->hasMany(Image::class,'product_id','id');
     }
 
     public function getRouteKeyName()

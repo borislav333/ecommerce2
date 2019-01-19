@@ -1,5 +1,10 @@
 @extends('admin.admin')
 @section('display')
+    @if(\Illuminate\Support\Facades\Session::has('deletedProduct'))
+        <div class="alert alert-success" role="alert">
+            {{\Illuminate\Support\Facades\Session::get('deletedProduct')}}
+        </div>
+    @endif
     <table class="table">
         <thead>
         <tr>
@@ -10,8 +15,13 @@
         @foreach($products as $prod)
             <tr>
             <th>{{$prod->id}}</th><th><img src="{{url('/images/head_img/'.$prod->head_image)}}" alt="" height="60"></th><th>{{$prod->name}}</th>
-                <th>{{$prod->quantity}}</th><th>{{$prod->category->name}}</th><th><a href="" class="btn btn-primary">Edit</a></th><th><a
-                        href="" class="btn btn-danger">Delete</a></th>
+                <th>{{$prod->quantity}}</th><th>{{$prod->category->name}}</th><th>
+                    <a href="{{route('editProduct',['category'=>$prod->category->slug,'product'=>$prod->slug])}}"
+                       class="btn btn-primary">Edit</a></th><th><form method="post"
+                            action="{{route('deleteProduct',['productslug'=>$prod->slug])}}">
+                        @method('delete')
+                        @csrf
+                        <button type="submit" class="btn btn-danger">Delete</button></form></th>
             </tr>
             @endforeach
 
