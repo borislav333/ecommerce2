@@ -109,9 +109,9 @@
                                         </div>
                                         <div class="product-body">
                                             <p class="product-category">{{$prod->category->name}}</p>
-                                            <h3 class="product-name ">
+                                            <h3 class="product-name " style="height: 40px;">
                                                 <a href="{{route('getCurrentProduct',['category'=>$prod->category->slug,'product'=>$prod->slug])}}"
-                                                class="product-name-alink" style="">
+                                                class="product-name-alink " style="">
                                                     {{$prod->name}}
                                                 </a>
                                             </h3>
@@ -133,7 +133,15 @@
                                             </div>
                                         </div>
                                         <div class="add-to-cart">
-                                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                            <form action="{{route('addToCart',['prodId'=>$prod->id])}}" method="post">
+                                                @method('post')
+                                                @csrf
+                                                <span style="color:white;margin-right: 6px;">Quantity:</span>
+                                                <input type="number" min="1" max="{{$prod->quantity}}" value="1" name="addProdQuantity">
+                                                <div style="height: 8px"></div>
+                                                <button class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                            </form>
+
                                         </div>
                                     </div>
                                 @endforeach
@@ -240,7 +248,7 @@
                                     </div>
                                     <div class="product-body">
                                         <p class="product-category">Category</p>
-                                        <h3 class="product-name"><a href="#">product name goes here</a></h3>
+                                        <h3 class="product-name" ><a href="#" >product name goes here</a></h3>
                                         <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
                                         <div class="product-rating">
                                             <i class="fa fa-star"></i>
@@ -681,5 +689,6 @@
     <!-- /container -->
 </div>
 <!-- /SECTION -->
-
+<script>
+</script>
 @endsection

@@ -114,7 +114,7 @@ class AdminController extends Controller
 
     }
 
-    public function editProductView($catSlug,$prodSlug){
+    public function editProductView(string $catSlug,string $prodSlug){
         //$product=Product::where('slug',$slug)->get();
         $product=Product::where('slug',$prodSlug)->firstOrFail();
         //dd($product->images()->get());
@@ -123,7 +123,7 @@ class AdminController extends Controller
         return view('admin.editproduct',['product'=>$product,'categories'=>$categories]);
     }
 
-    public function updateProduct(Request $request,$catSlug,$prodSlug){
+    public function updateProduct(Request $request,string $catSlug,string $prodSlug){
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|min:2|max:255',
@@ -182,14 +182,14 @@ class AdminController extends Controller
             return $e->getMessage();
         }
     }
-    public function updatePosition($imgid,$position){
+    public function updatePosition(int $imgid,int $position){
         $image=Image::find($imgid);
         $image->position=$position;
         $image->save();
         return redirect()->back()->with('success-position','The position is changed successfuly!');
     }
 
-    public function removeCurrentImage($imgId){
+    public function removeCurrentImage(int $imgId){
         $image=Image::where('id',$imgId)->firstOrFail();
 
         $path=public_path().'\images\other_img\\'.$image->source;
@@ -202,7 +202,7 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function deleteProduct($productslug){
+    public function deleteProduct(string $productslug){
         $product=Product::where('slug',$productslug)->first();
         $path=public_path().'\images\head_img\\'.$product->head_image;
         if(File::exists($path)){

@@ -3,7 +3,7 @@
         @break;
     @endif
     <!-- product -->
-    <div class="product" style="">
+    <div class="product">
         <div class="product-img text-center" >
             <img src="{{asset('images/head_img/'.$prod->head_image)}}" alt="" height="200" >
             <div class="product-label">
@@ -16,8 +16,9 @@
         </div>
         <div class="product-body">
             <p class="product-category">{{$prod->category->name}}</p>
-            <h3 class="product-name">
-                <a href="{{route('getCurrentProduct',['category'=>$prod->category->slug,'product'=>$prod->slug])}}">
+            <h3 class="product-name " style="height: 40px;">
+                <a href="{{route('getCurrentProduct',['category'=>$prod->category->slug,'product'=>$prod->slug])}}"
+                   class="product-name-alink " style="">
                     {{$prod->name}}
                 </a>
             </h3>
@@ -39,7 +40,12 @@
             </div>
         </div>
         <div class="add-to-cart">
-            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+            <form action="{{route('addToCart',['prodId'=>$prod->id])}}" method="post">
+                @method('post')
+                @csrf
+                <button class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i> add to cart</button>
+            </form>
+
         </div>
     </div>
 @endforeach

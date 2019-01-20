@@ -23,7 +23,7 @@ Route::get('/homeprod/{cat}','ProductController@getNewProdsByCategory')->name('g
 
 Auth::routes();
 
-/*Admin */
+/*Admin panel */
 Route::post('/createProduct/add','Admin\AdminController@addNewProduct')->name('addNewProduct');
 Route::get('/createProduct','Admin\AdminController@createProductView')->name('createProductView');
 Route::get('/admin','Admin\AdminController@index')->name('adminIndex');
@@ -33,7 +33,10 @@ Route::post('/{category}/{product}/update','Admin\AdminController@updateProduct'
 Route::post('/removeimg/{imgid}','Admin\AdminController@removeCurrentImage')->name('removeCurrentImage');
 Route::post('/positionupdate/{imgid}/{position}','Admin\AdminController@updatePosition')->name('updatePosition');
 Route::delete('/deleteproduct/{productslug}','Admin\AdminController@deleteProduct')->name('deleteProduct');
-/*Route::patch('/admin/products/{category}/{productid}','')*/
+/* End admin panel */
 
+Route::post('/cartadd/{prodId}','ProductController@addToCart')->name('addToCart');
+Route::post('/cartremove/{prodId}','ProductController@removeFromCart')->name('removeFromCart');
+Route::get('/viewcart','ProductController@viewCart')->name('viewCart');
 
 Route::get('/home', 'HomeController@index')->name('home');

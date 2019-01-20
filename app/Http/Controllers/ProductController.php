@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Cart;
 use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 
 class ProductController extends Controller
 {
@@ -33,7 +35,7 @@ class ProductController extends Controller
         return view('ajax_view.homeprod',['products'=>$lastProducts]);
     }
 
-    public function getCurrentProduct($categorySlug,$productSlug){
+    public function getCurrentProduct(string $categorySlug,string $productSlug){
         $categoryId=Category::where('slug',$categorySlug)->firstOrFail()->id;
 
         $product=Product::where(['slug'=>$productSlug,'category_id'=>$categoryId])->firstOrFail();
@@ -42,4 +44,30 @@ class ProductController extends Controller
         return view('layouts.viewproduct',['product'=>$product]);
     }
 
+    public function viewCart(){
+        $cart=Session::get('cart');
+        return view('sections.viewCart',['cart'=>$cart]);
+    }
+    public function addToCart(Request $request,int $prodId){
+        /*session_destroy();
+        dd();*/
+        $session=Session::get('cart');
+        $product=Product::find($prodId);
+
+        $cart=new Cart($session);
+        $cart->addItemToCart($product,(int)$request->post('addProdQuantity'));
+        Session::put('cart',$cart);
+        return redirect()->back();
+    }
+
+    public function removeFromCart(int $prodId){
+        $cart=session()->get('cart');
+        if(array_key_exists($prodId,$cart->items)){
+            /*$cart->totalQuantity-=$cart->items[$prodId]['productsQuantity'];*/
+            $cart->totalQuantity--;
+            $cart->totalPrice-=$cart->items[$prodId]['productsPrice'];
+            unset($cart->items[$prodId]);
+        }
+        return redirect()->back();
+    }
 }

@@ -1,3 +1,4 @@
+{{--{{session()->forget('cart')}}--}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -107,42 +108,50 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>Your Cart</span>
-                                <div class="qty">3</div>
+                                @if((session()->get('cart')->totalQuantity>0))
+                                <div class="qty">{{session()->get('cart')->getTotalQuantity()}}</div>
+                                    @endif
                             </a>
+                            @if(session()->get('cart')->totalQuantity>0)
                             <div class="cart-dropdown">
-                                <div class="cart-list">
-                                    <div class="product-widget" style=";">
-                                        <div class="product-img" >
-                                            <img src="{{asset('img/product01.png')}}" class="shop-cart-img" alt="" style="width: 80px;height: 80px">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
-                                        </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
-                                    </div>
 
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img src="{{asset('img/product02.png')}}" alt="">
+                                <div class="cart-list">
+
+
+                                        @foreach(session()->get('cart')->items as $item)
+                                        <div class="product-widget" style=";">
+                                            <div class="product-img" >
+                                                <img src="{{asset('images/head_img/'.$item['product']->head_image)}}" class="shop-cart-img" alt="" style="width: 60px;height: 60px">
+                                            </div>
+                                            <div class="product-body">
+                                                <h3 class="product-name" ><a href="#" class="text-wrap product-name-alink" >{{$item['product']->name}}</a></h3>
+                                                <h4 class="product-price"><span class="qty">{{$item['productsQuantity']}}x</span>${{$item['product']->newprice}}</h4>
+                                            </div>
+                                            <form action="{{route('removeFromCart',['prodId'=>$item['product']->id])}}" method="post">
+                                                @method('post')
+                                                @csrf
+                                                <button class="delete" type="submit"><i class="fa fa-close"></i></button>
+                                            </form>
+
                                         </div>
-                                        <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
-                                        </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
-                                    </div>
+                                        @endforeach
+
                                 </div>
                                 <div class="cart-summary">
-                                    <small>3 Item(s) selected</small>
-                                    <h5>SUBTOTAL: $2940.00</h5>
+
+                                    <small><b>{{session()->get('cart')->totalQuantity}}  {{str_plural('Item',session()->get('cart')->totalQuantity)}}</b>
+                                         selected</small>
+                                    <h5>SUBTOTAL: ${{session()->get('cart')->totalPrice}}</h5>
+
                                 </div>
+
                                 <div class="cart-btns">
-                                    <a href="#">View Cart</a>
+                                    <a href="{{route('viewCart')}}">View Cart</a>
                                     <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>
+                    @endif
                         <!-- /Cart -->
 
                         <!-- Menu Toogle -->

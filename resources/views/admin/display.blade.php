@@ -21,7 +21,8 @@
                             action="{{route('deleteProduct',['productslug'=>$prod->slug])}}">
                         @method('delete')
                         @csrf
-                        <button type="submit" class="btn btn-danger">Delete</button></form></th>
+                        <button type="submit" class="btn btn-danger" onclick="confirm('Do you want to' +
+                         ' delete this product named {{$prod->name}}?')">Delete</button></form></th>
             </tr>
             @endforeach
 

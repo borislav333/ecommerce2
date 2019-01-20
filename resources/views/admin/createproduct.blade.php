@@ -178,29 +178,8 @@
                 $(this).parent().parent().remove();
             })
 
-            /*$('#addprod').click(function () {
-                let dataobj={
-                    name:$('#name').val(),
-                    descr:$('#descr').val(),
-                    price:$('#price').val(),
-                    quantity:$('#quantity').val(),
-                    category:$('#category').find(":selected").val(),
-                }
-                console.log(dataobj);
 
-                $.ajax({
-                    method:'POST',
-                    url:'/createProduct/add',
-                    data:dataobj,
-                    success:(res)=>{
-                        console.log(res)
-                    },
-                    error:(err)=>{
-                        console.log(err)
-                    }
 
-                })
-            })*/
 
 
         });
