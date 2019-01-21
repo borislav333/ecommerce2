@@ -16,7 +16,7 @@ class Product extends Model
         return $this->belongsToMany(Category::class,'category_product','product_id','category_id');
     }
     public function getNewPriceAttribute(){
-        return $this->price*((100-$this->discount)/100);
+        return round(( $this->price*((100-$this->discount)/100) ) , 2 );
     }
     public function images(){
         return $this->hasMany(Image::class,'product_id','id');

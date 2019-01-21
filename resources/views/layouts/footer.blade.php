@@ -137,12 +137,17 @@
 <script src="{{asset('js/slick.min.js')}}"></script>
 <script src="{{asset('js/nouislider.min.js')}}"></script>
 <script src="{{asset('js/jquery.zoom.min.js')}}"></script>
-<script src="{{asset('js/main.js')}}"></script>
+{{--<script src="{{asset('js/main.js')}}"></script>--}}
 
+
+{{--<script src="{{asset('js/app.js')}}"></script>--}}
 {{--Home Page get new products ajax request  --}}
 <script>
 
     $(document).ready(function() {
+        /*view cart*/
+
+        /*end view cart*/
 
         @foreach(\App\Category::where('parent_id',null)->orderBy('name','DESC')->get() as $cat)
         $("#li-cat-{{$cat->id}}").on('click',function () {

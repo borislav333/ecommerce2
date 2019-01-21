@@ -46,7 +46,10 @@ class ProductController extends Controller
 
     public function viewCart(){
         $cart=Session::get('cart');
-        return view('sections.viewCart',['cart'=>$cart]);
+        if(count($cart->items)>0){
+            return view('sections.viewCart',['cart'=>$cart]);
+        }
+        return redirect()->route('index');
     }
     public function addToCart(Request $request,int $prodId){
         /*session_destroy();
