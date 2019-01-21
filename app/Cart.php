@@ -40,7 +40,7 @@ class Cart
                 $this->items[$product->id]['product'] = $product;
                 $this->items[$product->id]['product']['newprice'] = $product->newprice;
                 $this->items[$product->id]['productsPrice'] = 0;
-                $this->items[$product->id]['productsQuantity'] = (int)0;
+                $this->items[$product->id]['productsQuantity'] = 0;
                 $this->totalQuantity++;
             }
             $this->items[$product->id]['productsQuantity'] += $quantity;

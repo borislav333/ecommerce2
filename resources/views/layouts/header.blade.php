@@ -32,9 +32,10 @@
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    <script src="{{asset('/js/app.js')}}"></script>
+
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <![endif]-->
 
 </head>
@@ -121,13 +122,17 @@
 
                                         @foreach(session()->get('cart')->items as $item)
                                         <div class="product-widget" style=";">
-                                            <div class="product-img" >
-                                                <img src="{{asset('images/head_img/'.$item['product']->head_image)}}" class="shop-cart-img" alt="" style="width: 60px;height: 60px">
-                                            </div>
-                                            <div class="product-body">
-                                                <h3 class="product-name" ><a href="#" class="text-wrap product-name-alink" >{{$item['product']->name}}</a></h3>
-                                                <h4 class="product-price"><span class="qty">{{$item['productsQuantity']}}x</span>${{$item['product']->newprice}}</h4>
-                                            </div>
+                                            {{--<div id="cart">
+                                                <app-cart :item="{{json_encode($item)}}"></app-cart>--}}
+                                                <div class="product-img" >
+                                                    <img src="{{asset('images/head_img/'.$item['product']->head_image)}}" class="shop-cart-img" alt="" style="width: 60px;height: 60px">
+                                                </div>
+                                                <div class="product-body">
+                                                    <h3 class="product-name" ><a href="#" class="text-wrap product-name-alink" >{{$item['product']->name}}</a></h3>
+                                                    <h4 class="product-price"><span class="qty">{{$item['productsQuantity']}}x</span>${{$item['product']->newprice}}</h4>
+                                                </div>
+
+
                                             <form action="{{route('removeFromCart',['prodId'=>$item['product']->id])}}" method="post">
                                                 @method('post')
                                                 @csrf

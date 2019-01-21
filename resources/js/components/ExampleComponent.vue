@@ -27,7 +27,7 @@
                             <td class="text-right dqdq" ><b id="product">$ {{item['productsPrice']}}</b></td>
                             <td class="text-right"><button class="btn btn-sm btn-danger" :formaction="'/cartremove/'+item['product'].id"><i class="fa fa-trash"></i> </button> </td>
                         </tr>
-                        <tr>
+                       <!-- <tr>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -42,7 +42,7 @@
                             <td></td>
                             <td>Shipping</td>
                             <td class="text-right">6,90 €</td>
-                        </tr>
+                        </tr>-->
                         <tr>
                             <td></td>
                             <td></td>
@@ -89,7 +89,6 @@
             }
         },
         mounted() {
-            console.log('Component mounted.')
         }
     }
 </script>
