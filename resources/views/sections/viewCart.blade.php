@@ -3,7 +3,7 @@
 
     {{--{{dd($cart->items[91]['product'])}}--}}
 
-        <form action="/" method="post">
+        <form action="{{route('orderIndex')}}" method="post">
             @csrf
             <div class="container mb-4">
                 <div class="row">
@@ -26,14 +26,17 @@
                                 </div>
 
                                 @foreach($cart->items as $item)
+                                    <input type="hidden" name="productId[]" value="{{ $item['product']->id }}">
                                     <tr>
                                         <td><img src="{{asset('images/head_img/'.$item['product']->head_image)}}" height="50"/> </td>
                                         <td>{{$item['product']->name}}</td>
                                         <td>$ <span id="singlePrice">{{$item['product']->newprice}}</span></td>
+
                                         <td><input class="form-control productsQuantity" type="number" value="{{$item['productsQuantity']}}"
-                                            min="1" max="{{$item['product']->quantity}}" step="1" required/></td>
+                                            min="1" max="{{$item['product']->quantity}}" step="1" name="quantity[]"/></td>
                                         <td class="text-right" ><b>$ </b><b class="productsPrice">{{$item['productsPrice']}}</b></td>
-                                        <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
+                                        <td class="text-right"><button class="btn btn-sm btn-danger"
+                                             formaction="{{route('removeFromCart',$item['product']->id)}}"><i class="fa fa-trash"></i> </button> </td>
                                     </tr>
                                 @endforeach
 
@@ -71,7 +74,7 @@
                                 <a class="btn btn-block btn-primary" href="/">Continue Shopping</a>
                             </div>
                             <div class="col-sm-12 col-md-6 text-right">
-                                <button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
+                                <button class="btn btn-lg btn-block btn-success text-uppercase" >Checkout</button>
                             </div>
                         </div>
                     </div>
@@ -86,17 +89,25 @@
                 let singlePrice=parseFloat($(this).parent().prev().children('#singlePrice').text()).toFixed(2);
 
                 $(this).parent().next().children('.productsPrice').text(parseFloat(singlePrice*$(this).val()).toFixed(2));
-
                 let as=[];
                 $('.productsPrice').each(function () {
                     as.push($(this).text())
                 })
                 let sum=0;
-                for (let i=0;i<as.length;i++){
-                    sum+=as[i]
-                }
+                as.forEach(function (value) {
+
+                    sum+=parseFloat(value);
+                })
                 $('#totalPrice').text(parseFloat(sum).toFixed(2))
             })
+
+
+               /* $.ajax({
+                    type:'post',
+                    url:'/checkout/post',
+                    data:{},
+                })*/
+
 
         }
     </script>

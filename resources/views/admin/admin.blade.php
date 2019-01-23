@@ -56,6 +56,9 @@
             <li class="{{ (\Illuminate\Support\Facades\Request::is('createProduct')) ? 'active' : '' }}">
                 <a href="{{route('createProductView')}}">Create new product</a>
             </li>
+            <li class="{{ (\Illuminate\Support\Facades\Request::is('admin/orders')) ? 'active' : '' }}">
+                <a href="{{route('getOrders')}}">Orders</a>
+            </li>
             <li class="">
                 <a href="#">Link</a>
             </li>

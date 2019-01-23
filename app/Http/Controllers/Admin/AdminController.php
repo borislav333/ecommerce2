@@ -175,7 +175,7 @@ class AdminController extends Controller
                 }
             }
             DB::commit();
-            return redirect()->back();
+            return redirect()->route('adminIndex');
         }
         catch (\Exception $e){
             DB::rollBack();

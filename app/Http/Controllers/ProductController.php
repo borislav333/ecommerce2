@@ -45,8 +45,9 @@ class ProductController extends Controller
     }
 
     public function viewCart(){
-        $cart=Session::get('cart');
-        if(count($cart->items)>0){
+
+        if(Session::get('cart')){
+            $cart=Session::get('cart');
             return view('sections.viewCart',['cart'=>$cart]);
         }
         return redirect()->route('index');
@@ -70,6 +71,7 @@ class ProductController extends Controller
             $cart->totalQuantity--;
             $cart->totalPrice-=$cart->items[$prodId]['productsPrice'];
             unset($cart->items[$prodId]);
+            \session()->put('cart',$cart);
         }
         return redirect()->back();
     }

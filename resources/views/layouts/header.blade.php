@@ -153,7 +153,7 @@
 
                                 <div class="cart-btns">
                                     <a href="{{route('viewCart')}}">View Cart</a>
-                                    <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                                    <a href="{{route('orderIndex')}}">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>
