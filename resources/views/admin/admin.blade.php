@@ -53,8 +53,8 @@
             <li class="{{ (\Illuminate\Support\Facades\Request::is('admin')) ? 'active' : '' }}">
                 <a href="{{route('adminIndex')}}">Home</a>
             </li>
-            <li class="">
-                <a href="#">Create category/subcategory</a>
+            <li class="{{ (\Illuminate\Support\Facades\Request::is('admin/categories')) ? 'active' : '' }}">
+                <a href="{{route('categoryIndex')}}">Categories/subcategories</a>
             </li>
             <li class="{{ (\Illuminate\Support\Facades\Request::is('createProduct')) ? 'active' : '' }}">
                 <a href="{{route('createProductView')}}">Create new product</a>

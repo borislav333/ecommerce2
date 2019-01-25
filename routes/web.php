@@ -38,6 +38,11 @@ Route::get('/admin/orders','Admin\AdminOrdersController@index')->name('getOrders
 Route::get('/admin/orders/search','Admin\AdminOrdersController@searchUserOrders')->name('getOrdersByUser');
 Route::post('/admin/orders/dispatch','Admin\AdminOrdersController@dispatchOrder')->name('dispatchOrder');
 Route::get('/admin/orders/view','Admin\AdminOrdersController@viewOrder')->name('viewOrder');
+//Admin categories
+Route::get('/admin/categories','Admin\AdminCategoryController@index')->name('categoryIndex');
+Route::post('/admin/category/create','Admin\AdminCategoryController@create')->name('createCategory');
+Route::patch('/admin/category/edit/{categorySlug}','Admin\AdminCategoryController@edit')->name('editCategory');
+Route::delete('/admin/category/remove/{categorySlug}','Admin\AdminCategoryController@destroy')->name('deleteCategory');
 
 /* End admin panel */
 
