@@ -60,6 +60,7 @@
                     </tr>
                     </thead>
                     <tbody>
+                    @if(!empty($orders))
                     @foreach($orders as $order)
                         <tr>
                             <td>{{$order->id}}</td>
@@ -68,9 +69,9 @@
                             <td>{{($order->email) ?? 'None'}}</td>
                             <td>{{($order->user_id) ?? 'Guest'}}</td>
                             <td><b>{{$order->created_at}}</b></td>
-                            <form action="{{route('viewOrder',['orderId'=>$order->id])}}">
-                                <td><button class="btn btn-primary">View</button></td>
-                            </form>
+
+                                <td><a class="btn btn-primary" href="{{route('viewOrder')}}">View</a></td>
+
 
                             <form method="post" action="{{route('dispatchOrder')}}">
                                 @csrf
@@ -86,17 +87,8 @@
                             </form>
                         </tr>
                         @endforeach
+                        @endif
 
-                    <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                        <td><button class="btn btn-primary">View</button></td>
-                        <td><button class="btn btn-primary">Dispatch</button></td>
-                    </tr>
                     </tbody>
                 </table>
             </div>

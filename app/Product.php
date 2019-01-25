@@ -21,6 +21,9 @@ class Product extends Model
     public function images(){
         return $this->hasMany(Image::class,'product_id','id');
     }
+    public function orders(){
+        return $this->belongsToMany(Order::class, 'order_products', 'product_id', 'order_id')->withPivot('product_price');
+    }
 
     public function getRouteKeyName()
     {

@@ -32,8 +32,9 @@ class AdminOrdersController
         $order->save();
         return redirect()->back();
     }
-    public function viewOrder($orderId){
-        $order=Order::where('id',$orderId)->first();
-        dd($order);
+    public function viewOrder(){
+        $order=Order::where('id',36)->first();
+        /*dd($order->products()->get()[0]->pivot->product_price);*/
+        return view('admin.viewOrder',['order'=>$order]);
     }
 }

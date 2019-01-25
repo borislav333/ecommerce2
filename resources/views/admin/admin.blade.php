@@ -53,11 +53,16 @@
             <li class="{{ (\Illuminate\Support\Facades\Request::is('admin')) ? 'active' : '' }}">
                 <a href="{{route('adminIndex')}}">Home</a>
             </li>
+            <li class="">
+                <a href="#">Create category/subcategory</a>
+            </li>
             <li class="{{ (\Illuminate\Support\Facades\Request::is('createProduct')) ? 'active' : '' }}">
                 <a href="{{route('createProductView')}}">Create new product</a>
             </li>
             <li class="{{ (\Illuminate\Support\Facades\Request::is('admin/orders')) ? 'active' : '' }}">
-                <a href="{{route('getOrders')}}">Orders</a>
+                <a href="{{route('getOrders')}}">Orders <span style="background-color: red;border-radius: 5px;padding: 2px;color: white;">
+                        {{\App\Order::where('dispatched',0)->count()}}</span>
+                </a>
             </li>
             <li class="">
                 <a href="#">Link</a>

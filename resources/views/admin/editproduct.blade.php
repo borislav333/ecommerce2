@@ -148,7 +148,7 @@
                             @endforeach
                     </select>--}}
                 </div>
-                @foreach($product->images()->get() as $img)
+                @foreach($product->images()->orderBy('position')->get() as $img)
                         <div class="addfile" style="width: 400px; margin:0 auto;" >
                             <img src="{{url('/images/other_img/'.$img->source)}}" alt="" height="100">
                             {{--<input type="file" name="productimgOld[]" class="productimg form-control">--}}
@@ -159,12 +159,12 @@
                                     <i class="glyphicon glyphicon-remove"></i> Remove</button>
                             </div>-
                             <label for="">Position of image:</label>
-                            <select name="position[]" id="select-img-{{$loop->index}}">
+                            <select name="position[]" id="select-img-{{$loop->index}}" >
                                 @foreach($product->images()->get() as $v)
                                     <option value="{{$loop->index}}" {{($img->position===$loop->index) ? 'selected' : ''}}>{{$loop->iteration}}</option>
                                 @endforeach
                             </select>
-                            <button class="btn btn-primary positionbtn" id="position-btn-{{$loop->iteration}}"
+                            <button class="btn btn-primary positionbtn invisible" id="position-btn-{{$loop->iteration}}"
                                     >Save position</button>
                         </div>
 
@@ -176,7 +176,6 @@
 
                     </div>
                 @endif
-
                 <button class="btn btn-success center-block" type="button" id="addimg"><i class="glyphicon glyphicon-plus"></i>Add</button>
             </div>
 
@@ -227,12 +226,14 @@
             let selectedImg=[];
             let currentElement=null;
             let url=null;
-            @foreach($product->images()->get() as $img)
+            @foreach($product->images()->orderBy('position')->get() as $img)
                 currentElement=$("#select-img-{{$loop->index}} option:selected" ).val();
+            $('#position-btn-{{$loop->iteration}}').attr('formaction', "/positionupdate/{{$img->id}}/" + currentElement);
             $('#select-img-{{$loop->index}}').change(function() {
                 currentElement = $(this).val();
-                console.log(currentElement);
+                $('#position-btn-{{$loop->iteration}}').removeAttr('formaction');
                 $('#position-btn-{{$loop->iteration}}').attr('formaction', "/positionupdate/{{$img->id}}/" + currentElement);
+                $(this).next().click();
 
 
             })

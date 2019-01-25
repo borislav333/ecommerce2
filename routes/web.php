@@ -37,7 +37,7 @@ Route::delete('/deleteproduct/{productslug}','Admin\AdminController@deleteProduc
 Route::get('/admin/orders','Admin\AdminOrdersController@index')->name('getOrders');
 Route::get('/admin/orders/search','Admin\AdminOrdersController@searchUserOrders')->name('getOrdersByUser');
 Route::post('/admin/orders/dispatch','Admin\AdminOrdersController@dispatchOrder')->name('dispatchOrder');
-Route::get('/admin/orders/view/{orderId}','Admin\AdminOrdersController@viewOrder')->name('viewOrder');
+Route::get('/admin/orders/view','Admin\AdminOrdersController@viewOrder')->name('viewOrder');
 
 /* End admin panel */
 

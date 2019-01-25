@@ -186,7 +186,7 @@ class AdminController extends Controller
         $image=Image::find($imgid);
         $image->position=$position;
         $image->save();
-        return redirect()->back()->with('success-position','The position is changed successfuly!');
+        return redirect()->back()/*with('success-position','The position is changed successfuly!')*/;
     }
 
     public function removeCurrentImage(int $imgId){
