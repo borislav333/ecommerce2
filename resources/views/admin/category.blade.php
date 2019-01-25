@@ -18,6 +18,11 @@
                     <button type="submit" class="btn btn-success">Add</button>
                 </form>
             </div>
+            @if($errors->has('name'))
+            <div class="alert alert-danger" role="alert">
+                {{$errors->first()}}
+            </div>
+            @endif
             <div class="panel-body">
                 <h4 class="">All categories</h4>
                     <table class="table">
