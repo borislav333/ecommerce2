@@ -20,10 +20,10 @@
                                     <th> </th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody>{{--
                                 <div id="app">
                                     <example-component></example-component>
-                                </div>
+                                </div>--}}
 
                                 @foreach($cart->items as $item)
                                     <input type="hidden" name="productId[]" value="{{ $item['product']->id }}">

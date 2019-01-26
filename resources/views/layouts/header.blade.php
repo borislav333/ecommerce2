@@ -79,14 +79,19 @@
                 <!-- SEARCH BAR -->
                 <div class="col-md-6">
                     <div class="header-search">
-                        <form>
-                            <select class="input-select">
-                                <option value="0">All Categories</option>
-                                <option value="1">Category 01</option>
-                                <option value="1">Category 02</option>
+                        <form method="get" action="{{route('liveSearch')}}" >
+
+                            <select class="input-select" style="max-width: 160px;" name="select_category" id="select_category">
+                                <option value="">All</option>
+                                @foreach(\App\Category::where('parent_id',null)->get() as $cat)
+                                    <option value="{{$cat->id}}">{{$cat->name}}</option>
+                                    @endforeach
                             </select>
-                            <input class="input" placeholder="Search here">
-                            <button class="search-btn">Search</button>
+                            <input class="input" placeholder="Search product here" name="search_product" id="search_product" list="products">
+                            <datalist id="products">
+
+                            </datalist>
+                            <button class="search-btn" id="search-btn">Search</button>
                         </form>
                     </div>
                 </div>
@@ -128,7 +133,9 @@
                                                     <img src="{{asset('images/head_img/'.$item['product']->head_image)}}" class="shop-cart-img" alt="" style="width: 60px;height: 60px">
                                                 </div>
                                                 <div class="product-body">
-                                                    <h3 class="product-name" ><a href="#" class="text-wrap product-name-alink" >{{$item['product']->name}}</a></h3>
+                                                    <h3 class="product-name" >
+                                                        <a href="{{route('getCurrentProduct',['category'=>$item['product']->category->slug,'product'=>$item['product']->slug])}}"
+                                                           class="text-wrap product-name-alink" >{{$item['product']->name}}</a></h3>
                                                     <h4 class="product-price"><span class="qty">{{$item['productsQuantity']}}x</span>${{$item['product']->newprice}}</h4>
                                                 </div>
 
@@ -208,3 +215,33 @@ html_entity_decode('<div class="alert alert-danger text-center" role="alert">
   '.session()->get('wrongQuantity').'
 </div>')
 :'' !!}
+
+<script>
+    window.onload=function () {
+        $('#select_category').change(function () {
+            $('#search_product').val('');
+            $('#products').empty();
+        })
+        $('#search_product').keyup(function () {
+
+            $.ajax({
+                type:'get',
+                url:'/get/products',
+                data:{search_product:$(this).val(),select_category:$('#select_category').val()},
+                dataType:'html',
+                success:function (res) {
+                    $('#products').html(res);
+                    if($('#search_product').val()==''){
+                        $('#products').empty();
+                    }
+                },
+                error:function (err) {
+                    console.log(err);
+                }
+            })
+
+
+        })
+
+    }
+</script>

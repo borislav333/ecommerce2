@@ -22,12 +22,12 @@ Route::get('/','ProductController@index')->name('index');
 Route::get('/homeprod/{cat}','ProductController@getNewProdsByCategory')->name('getNewProdsByCategory');
 
 Auth::routes();
-
+Route::get('/product/{category}/{product}','ProductController@getCurrentProduct')->name('getCurrentProduct');
 /*Admin panel */
 Route::post('/createProduct/add','Admin\AdminController@addNewProduct')->name('addNewProduct');
 Route::get('/createProduct','Admin\AdminController@createProductView')->name('createProductView');
 Route::get('/admin','Admin\AdminController@index')->name('adminIndex');
-Route::get('/admin/product/{category}/{product}','ProductController@getCurrentProduct')->name('getCurrentProduct');
+
 Route::get('/admin/product/{category}/{product}/edit','Admin\AdminController@editProductView')->name('editProduct');
 Route::post('/{category}/{product}/update','Admin\AdminController@updateProduct')->name('updateProduct');
 Route::post('/removeimg/{imgid}','Admin\AdminController@removeCurrentImage')->name('removeCurrentImage');
@@ -54,5 +54,9 @@ Route::get('/checkout/view','OrderController@index2')->name('checkoutView');
 Route::post('/checkout/view','OrderController@index')->name('orderIndex');
 Route::post('/checkout/process','OrderController@validateOrder')->name('orderValidate');
 Route::post('/checkout/removeCart','OrderController@removeCartItems')->name('removeCart');
+//Filter products
+/*Route::get('/search','FilterProductsController@index')->name('filterIndex');*/
+Route::get('/get/products','FilterProductsController@getProducts')->name('getProducts');
+Route::get('/search','FilterProductsController@liveSearch')->name('liveSearch');
 
 Route::get('/home', 'HomeController@index')->name('home');

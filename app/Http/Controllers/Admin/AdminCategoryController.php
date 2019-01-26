@@ -39,7 +39,7 @@ class AdminCategoryController
             $category->parent_id=$request->parent_id;
             $category->save();
 
-
+            return redirect()->back();
 
 
     }
