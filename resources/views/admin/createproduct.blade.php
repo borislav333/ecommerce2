@@ -47,6 +47,32 @@
                 </div>
 
             </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label font-weight-bold" for="product_categorie">BRAND</label>
+                    <div class="col-md-4">
+                        <div>
+                            @if($errors->has('brand'))
+                                <div class="alert alert-danger text-center" role="alert">
+                                    {{$errors->first('brand')}}
+                                </div>
+                            @endif
+                            <b>Existing brand:</b>
+                            <select name="brand" id="brand">
+                                <option value="{{null}}">None</option>
+                                @foreach(\App\Brand::all() as $brand)
+                                    <option value="{{(int)$brand->id}}">{{$brand->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
+                            <b>New brand</b>
+                            <input type="text" name="new_brand" id="new_brand">
+                            <a class="btn btn-success" id="add_new_brand" >Add</a>
+                        </div>
+
+                    </div>
+                </div>
+
                 @if($errors->has('category_id'))
                     <div class="alert alert-danger text-center" role="alert">
                         {{$errors->first('category_id')}}
@@ -180,7 +206,21 @@
 
 
 
-
+            $('#add_new_brand').click(function () {
+                $.ajax({
+                    type:'post',
+                    url:'/addbrand',
+                    data:{new_brand:$('#new_brand').val(),_token:'{{csrf_token()}}'},
+                    dataType:'json',
+                    success:function (res) {
+                        console.log(res.name)
+                        $('#brand').append(`<option value="${parseInt(res.id)}">${res.name}</option>`)
+                    },
+                    error:function (err) {
+                        console.log(err)
+                    }
+                })
+            })
 
         });
 

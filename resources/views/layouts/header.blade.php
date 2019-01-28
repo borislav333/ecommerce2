@@ -79,8 +79,8 @@
                 <!-- SEARCH BAR -->
                 <div class="col-md-6">
                     <div class="header-search">
-                        <form method="get" action="{{route('liveSearch')}}" >
-
+                        <form method="post" action="{{route('liveSearch')}}" >
+                            @csrf
                             <select class="input-select" style="max-width: 160px;" name="select_category" id="select_category">
                                 <option value="">All</option>
                                 @foreach(\App\Category::where('parent_id',null)->get() as $cat)
@@ -217,11 +217,12 @@ html_entity_decode('<div class="alert alert-danger text-center" role="alert">
 :'' !!}
 
 <script>
-    window.onload=function () {
+    function liveSearch() {
         $('#select_category').change(function () {
             $('#search_product').val('');
             $('#products').empty();
         })
+
         $('#search_product').keyup(function () {
 
             $.ajax({
@@ -244,4 +245,5 @@ html_entity_decode('<div class="alert alert-danger text-center" role="alert">
         })
 
     }
+    window.addEventListener("load", liveSearch, false);
 </script>

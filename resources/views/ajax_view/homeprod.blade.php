@@ -39,10 +39,13 @@
                 <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
             </div>
         </div>
-        <div class="add-to-cart">
+        <div class="add-to-cart" >
             <form action="{{route('addToCart',['prodId'=>$prod->id])}}" method="post">
                 @method('post')
                 @csrf
+                <span style="color:white;margin-right: 6px;">Quantity:</span>
+                <input type="number" min="1" max="{{$prod->quantity}}" value="1" name="addProdQuantity">
+                <div style="height: 8px"></div>
                 <button class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i> add to cart</button>
             </form>
 

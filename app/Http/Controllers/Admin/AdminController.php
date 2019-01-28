@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Brand;
 use App\Category;
 use App\CategoryProduct;
 use App\Image;
@@ -37,6 +38,7 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|unique:products|min:2|max:255',
             'descr' => 'required|string|min:10',
+            'brand'=>'integer|nullable',
             'price'=>'required|numeric|regex:/^\d*(\.\d{1,2})?$/',
             'quantity'=>'required|integer',
             'discount'=>'required|integer',
@@ -63,7 +65,8 @@ class AdminController extends Controller
                 //$img->storeAs('images/head_img', $nameImg);
                 $img->move(public_path().'/images/head_img/', $nameImg);
             }
-            $newProduct = new Product(['name' => $request->name,'slug'=>str_slug($request->name), 'descr' => $request->descr, 'price' => $request->price,
+            $newProduct = new Product(['name' => $request->name,'slug'=>str_slug($request->name), 'descr' => $request->descr,
+                'brand_id'=>$request->brand,'price' => $request->price,
                 'quantity' => $request->quantity, 'discount' => $request->discount,'head_image'=>$nameImg,
                 'category_id' => $request->category_id, 'user_id' => auth()->id()]);
             $newProduct->save();
@@ -128,6 +131,7 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|min:2|max:255',
             'descr' => 'required|string|min:10',
+            'brand'=>'integer|nullable',
             'price'=>'required|numeric|regex:/^\d*(\.\d{1,2})?$/',
             'quantity'=>'required|integer',
             'discount'=>'required|integer',
@@ -151,6 +155,7 @@ class AdminController extends Controller
             $product->slug = str_slug($request->name);
             $product->descr = $request->descr;
             $product->price = $request->price;
+            $product->brand_id=$request->brand;
             $product->quantity = $request->quantity;
             $product->discount = $request->discount;
             $product->category_id = $request->category_id;
@@ -219,5 +224,11 @@ class AdminController extends Controller
         return redirect()->back()->with('deletedProduct','Successfuly deleted product!');
         //Product::find($prodId)->delete();
 
+    }
+    public function addNewBrand(Request $request){
+        $brand=new Brand();
+        $brand->name=$request->new_brand;
+        $brand->save();
+        return json_encode($brand);
     }
 }

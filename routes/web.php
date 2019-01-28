@@ -23,6 +23,7 @@ Route::get('/homeprod/{cat}','ProductController@getNewProdsByCategory')->name('g
 
 Auth::routes();
 Route::get('/product/{category}/{product}','ProductController@getCurrentProduct')->name('getCurrentProduct');
+Route::post('/addbrand','Admin\AdminController@addNewBrand')->name('newBrand');
 /*Admin panel */
 Route::post('/createProduct/add','Admin\AdminController@addNewProduct')->name('addNewProduct');
 Route::get('/createProduct','Admin\AdminController@createProductView')->name('createProductView');
@@ -57,6 +58,14 @@ Route::post('/checkout/removeCart','OrderController@removeCartItems')->name('rem
 //Filter products
 /*Route::get('/search','FilterProductsController@index')->name('filterIndex');*/
 Route::get('/get/products','FilterProductsController@getProducts')->name('getProducts');
-Route::get('/search','FilterProductsController@liveSearch')->name('liveSearch');
+Route::post('/search','FilterProductsController@liveSearch')->name('liveSearch');
+Route::get('/search','FilterProductsController@liveSearchAll')->name('liveSearchAll');
+Route::get('/search/{categorySlug}','FilterProductsController@liveSearchCategory')->name('liveSearchCategory');
+Route::get('/search/product/{productSlug}','FilterProductsController@liveSearchProduct')->name('liveSearchProduct');
+Route::get('/search/catprod/{categorySlug}/{productSlug}','FilterProductsController@liveSearchCategoryProduct')->name('liveSearchCategoryProduct');
+
+Route::post('/filter','FilterProductsController@filterProducts')->name('filterProducts');
+
 
 Route::get('/home', 'HomeController@index')->name('home');
+

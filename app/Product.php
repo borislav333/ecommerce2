@@ -24,6 +24,9 @@ class Product extends Model
     public function orders(){
         return $this->belongsToMany(Order::class, 'order_products', 'product_id', 'order_id')->withPivot('product_price');
     }
+    public function brand(){
+        return $this->belongsTo(Brand::class);
+    }
 
     public function getRouteKeyName()
     {

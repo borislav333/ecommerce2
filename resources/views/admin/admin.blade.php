@@ -61,7 +61,7 @@
             </li>
             <li class="{{ (\Illuminate\Support\Facades\Request::is('admin/orders')) ? 'active' : '' }}">
                 <a href="{{route('getOrders')}}">Orders <span style="background-color: red;border-radius: 5px;padding: 2px;color: white;">
-                        {{\App\Order::where('dispatched',0)->count()}}</span>
+                        {{(\App\Order::where('dispatched',0)->count())}}</span>
                 </a>
             </li>
             <li class="">
