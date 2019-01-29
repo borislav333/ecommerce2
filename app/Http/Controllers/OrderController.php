@@ -82,6 +82,10 @@ class OrderController extends Controller
         $order->save();
         foreach ($cart->items as $item){
             $order->products()->attach($item['product']->id,['product_price'=>$item['productsPrice']]);
+            $product=Product::where('id',$item['product']->id)->first();
+            $product->quantity-=$item['productsQuantity'];
+            $product->save();
+
         }
 
         return response()->json($order);

@@ -67,6 +67,7 @@
                     <h3 class="aside-title">Price</h3>
                     <div class="price-filter">
                         <div id="price-slider"></div>
+
                         <div class="input-number price-min">
                             <input id="price-min" type="number">
                             <span class="qty-up">+</span>
@@ -300,9 +301,19 @@
         })
 
         $('.brands').click(function () {
-            $('.brands:checked').val();
-        })
+            brands=[];
+            $('.brands:checkbox:checked').each(function () {
+                brands.push(parseInt($(this).val()))
 
+            });
+            ajaxFilter()
+        });
+
+        $('#price-slider').on('click',function () {
+            price_min=$('#price-min').val();
+            price_max=$('#price-max').val();
+            ajaxFilter()
+        })
     }
     window.addEventListener("load", filterProducts, false);
 </script>

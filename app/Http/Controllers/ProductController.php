@@ -57,10 +57,18 @@ class ProductController extends Controller
         dd();*/
         $session=Session::get('cart');
         $product=Product::find($prodId);
+        if ($request->post('addProdQuantity')<=$product->quantity){
+            if (isset($session->items[$prodId])){
+                if(!(($product->quantity-$session->items[$prodId]['productsQuantity'])>=$request->post('addProdQuantity'))){
+                    return redirect()->back();
+                }
+            }
 
-        $cart=new Cart($session);
-        $cart->addItemToCart($product,(int)$request->post('addProdQuantity'));
-        Session::put('cart',$cart);
+            $cart=new Cart($session);
+            $cart->addItemToCart($product,(int)$request->post('addProdQuantity'));
+            Session::put('cart',$cart);
+        }
+
         return redirect()->back();
     }
 
