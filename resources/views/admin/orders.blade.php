@@ -91,6 +91,12 @@
 
                     </tbody>
                 </table>
+                @if(!empty($orders))
+                <div class="text-center">
+                    {{$orders->links()}}
+                </div>
+                    @endif
+
             </div>
         </div>
     </div>

@@ -10,31 +10,39 @@ use Illuminate\Support\Facades\Validator;
 class OrderController extends Controller
 {
     public function index(Request $request){
-        if(session()->get('cart'))
-        {
-            $cart=session()->get('cart');
+        try {
+            if (session()->get('cart')) {
+                $cart = session()->get('cart');
 
-           /* $count=count($request->productId);*/
+                /* $count=count($request->productId);*/
 
-            $cart->totalPrice=0;
-            foreach ($request->productId as $key=>$val){
-                $val=(int)$val;
-                $cart->items[$val]['productsQuantity']=(int)$request->quantity[$key];
-                $cart->items[$val]['productsPrice']=$cart->items[$val]['productsQuantity']*$cart->items[$val]['product']->newprice;
-                $cart->totalPrice+=$cart->items[$val]['productsPrice'];
 
+                $cart->totalPrice = 0;
+                foreach ($request->productId as $key => $val) {
+                    if (Product::where('id', $val)->first()->quantity < $cart->items[$val]['productsQuantity']) {
+                        throw new \Exception('Quantity not match!');
+                    }
+                    $val = (int)$val;
+                    $cart->items[$val]['productsQuantity'] = (int)$request->quantity[$key];
+                    $cart->items[$val]['productsPrice'] = $cart->items[$val]['productsQuantity'] * $cart->items[$val]['product']->newprice;
+                    $cart->totalPrice += $cart->items[$val]['productsPrice'];
+
+                }
+                session()->put('cart', $cart);
+
+                return view('sections.checkout', ['cart' => $cart]);
+            } else {
+
+                return redirect()->route('index');
             }
-            session()->put('cart',$cart);
-
-            return view('sections.checkout',['cart'=>$cart]);
         }
-        else{
-
-            return redirect()->route('index');
+        catch (\Exception $e){
+            return $e->getMessage();
         }
     }
 
     public function index2(){
+
             if(session()->get('cart'))
             {
                 $cart=session()->get('cart');

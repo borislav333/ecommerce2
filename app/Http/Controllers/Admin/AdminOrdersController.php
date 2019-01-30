@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 class AdminOrdersController
 {
     public function index(){
-        $orders=Order::latest()->paginate(10)->items();
+        $orders=Order::latest()->paginate(10);
 
         return view('admin.orders',['orders'=>$orders]);
     }

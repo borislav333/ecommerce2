@@ -37,7 +37,7 @@
                             <div>
 
                         <div class="checkbox-filter">
-                            <input type="radio" id="parent_cat" name="parent_cat" value="{{$parent->id}}" class="">
+                            <input type="radio" id="parent_cat" name="parent_cat" value="{{$parent->id}}" class="hidden">
                             <label for="category-{{$loop->iteration}}" class="parent-label">
                                 <span></span>
                                 {{$parent->name}}
@@ -48,7 +48,7 @@
                                 <div style="font-size: 13px;margin-left:30px;display: none;"  class="subcat-div">
                             @foreach($parent->children as $cat)
                                 <div>
-                                    <input type="radio" name="sub_cat" id="sub_cat" value="{{$cat->id}}" class="subcat-radio " autocomplete="off">
+                                    <input type="radio" name="sub_cat" id="sub_cat" value="{{$cat->id}}" class="subcat-radio  autocomplete="off">
                                     <span id="subcat_name">{{$cat->name}}</span>
                                 </div>
 
@@ -174,7 +174,7 @@
                 <!-- /store top filter -->
 
                 <!-- store products -->
-                <div class="row">
+                <div class="row" id="ajaxFilteredProducts">
                     <!-- product -->
                     @foreach($products as $prod)
                         <div class="product">
@@ -265,8 +265,9 @@
                 url:'/filter',
                 data:{parent_cat:parentCat,sub_cat:sub_cat,price_min:price_min,price_max:price_max,
                     brands:brands,_token:'{{csrf_token()}}'},
+                dataType:'html',
                 success:function (res) {
-                    console.log(res);
+                    $('#ajaxFilteredProducts').html(res);
                 },
                 error:function (err) {
                     console.log(err)
@@ -277,8 +278,8 @@
 
             $(this).click(function () {
                 $('.subcat-radio').prop('checked',false);
+                sub_cat=null;
                 let parentDiv=$(this).parent().parent();
-                console.log(parentDiv.find('.subcat-div'))
                 parentDiv.find('#parent_cat').prop('checked',true);
 
                 parentDiv.find('.subcat-div').toggle()
@@ -286,6 +287,7 @@
 
 
                 parentDiv.find('#subcat_name').click(function () {
+                    parentCat=null;
                     $(this).prev('#sub_cat').prop('checked',true);
                     parentDiv.find('#parent_cat').prop('checked',true);
                     sub_cat=parentDiv.find('#sub_cat:checked').val();
@@ -294,6 +296,7 @@
                 ajaxFilter()
             })
         })
+
         $('#price-min,#price-max').change(function () {
             price_min=$('#price-min').val();
             price_max=$('#price-max').val();
