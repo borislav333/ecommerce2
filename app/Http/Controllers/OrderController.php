@@ -41,7 +41,7 @@ class OrderController extends Controller
         }
     }
 
-    public function index2(){
+    public function checkoutView(){
 
             if(session()->get('cart'))
             {

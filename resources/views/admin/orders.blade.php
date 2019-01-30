@@ -70,7 +70,7 @@
                             <td>{{($order->user_id) ?? 'Guest'}}</td>
                             <td><b>{{$order->created_at}}</b></td>
 
-                                <td><a class="btn btn-primary" href="{{route('viewOrder')}}">View</a></td>
+                                <td><a class="btn btn-primary" href="{{route('viewOrder',['orderId'=>$order->id])}}">View</a></td>
 
 
                             <form method="post" action="{{route('dispatchOrder')}}">

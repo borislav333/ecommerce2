@@ -48,7 +48,7 @@
                                 <div style="font-size: 13px;margin-left:30px;display: none;"  class="subcat-div">
                             @foreach($parent->children as $cat)
                                 <div>
-                                    <input type="radio" name="sub_cat" id="sub_cat" value="{{$cat->id}}" class="subcat-radio  autocomplete="off">
+                                    <input type="radio" name="sub_cat" id="sub_cat" value="{{$cat->id}}" class="subcat-radio hidden" autocomplete="off">
                                     <span id="subcat_name">{{$cat->name}}</span>
                                 </div>
 
@@ -281,8 +281,8 @@
                 sub_cat=null;
                 let parentDiv=$(this).parent().parent();
                 parentDiv.find('#parent_cat').prop('checked',true);
-
-                parentDiv.find('.subcat-div').toggle()
+                $('.subcat-div').hide();
+                parentDiv.find('.subcat-div').show();
                 parentCat=parentDiv.find('#parent_cat').val();
 
 

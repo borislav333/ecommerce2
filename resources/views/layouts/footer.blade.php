@@ -145,26 +145,6 @@
 <script>
 
     $(document).ready(function() {
-        /*view cart*/
-
-        /*end view cart*/
-
-        @foreach(\App\Category::where('parent_id',null)->orderBy('name','DESC')->get() as $cat)
-        $("#li-cat-{{$cat->id}}").on('click',function () {
-            $.ajax({
-                type:'GET',
-                url:'/homeprod/{cat}',
-                data:{cat:"{{$cat->id}}"},
-                success:function (res) {
-                    $('#prod-holder').html(res);
-                    //console.log(res)
-                },
-                error:function (err) {
-                    console.log(err)
-                }
-            })
-        })
-        @endforeach
 
 
         $("#addimg").click(function () {

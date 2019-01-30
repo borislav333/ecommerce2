@@ -38,7 +38,7 @@ Route::delete('/deleteproduct/{productslug}','Admin\AdminController@deleteProduc
 Route::get('/admin/orders','Admin\AdminOrdersController@index')->name('getOrders');
 Route::get('/admin/orders/search','Admin\AdminOrdersController@searchUserOrders')->name('getOrdersByUser');
 Route::post('/admin/orders/dispatch','Admin\AdminOrdersController@dispatchOrder')->name('dispatchOrder');
-Route::get('/admin/orders/view','Admin\AdminOrdersController@viewOrder')->name('viewOrder');
+Route::get('/admin/orders/view/{orderId}','Admin\AdminOrdersController@viewOrder')->name('viewOrder');
 //Admin categories
 Route::get('/admin/categories','Admin\AdminCategoryController@index')->name('categoryIndex');
 Route::post('/admin/category/create','Admin\AdminCategoryController@create')->name('createCategory');
@@ -51,7 +51,7 @@ Route::post('/cartadd/{prodId}','ProductController@addToCart')->name('addToCart'
 Route::post('/cartremove/{prodId}','ProductController@removeFromCart')->name('removeFromCart');
 Route::get('/viewcart','ProductController@viewCart')->name('viewCart');
 //Orders
-Route::get('/checkout/view','OrderController@index2')->name('checkoutView');
+Route::get('/checkout/view','OrderController@checkoutView')->name('checkoutView');
 Route::post('/checkout/view','OrderController@index')->name('orderIndex');
 Route::post('/checkout/process','OrderController@validateOrder')->name('orderValidate');
 Route::post('/checkout/removeCart','OrderController@removeCartItems')->name('removeCart');
