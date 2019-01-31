@@ -29,7 +29,7 @@ class CreateOrdersTable extends Migration
             $table->decimal('totalPrice',12,2);
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

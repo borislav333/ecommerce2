@@ -150,7 +150,7 @@ class AdminController extends Controller
         DB::beginTransaction();
         try {
             $product = Product::where('slug', $prodSlug)->first();
-
+            $product->categories()->detach();
             $product->name = $request->name;
             $product->slug = str_slug($request->name);
             $product->descr = $request->descr;
@@ -171,6 +171,23 @@ class AdminController extends Controller
                 $product->head_image = $nameImg;
             }
             $product->save();
+            $newCategoryProduct=new CategoryProduct(['category_id'=>$product->category_id,'product_id'=>$product->id]);
+
+            $newCategoryProduct->save();
+            $parentCat=$product->category->parent;
+
+            if($parentCat !== null && $parentCat->count()){
+                $newCategoryProduct=new CategoryProduct(['category_id'=>$parentCat->id,'product_id'=>$product->id]);
+                $newCategoryProduct->save();
+                $parentCat=$parentCat->parent;
+
+                if($parentCat!==null && $parentCat->count()){
+                    $newCategoryProduct=new CategoryProduct(['category_id'=>$parentCat->id,'product_id'=>$product->id]);
+                    $newCategoryProduct->save();
+
+                }
+            }
+
             if ($request->hasFile('productimg')) {
                 foreach ($request->file('productimg') as $img) {
                     $nameImg = (string)str_random(5) . $img->getClientOriginalName();
@@ -208,6 +225,7 @@ class AdminController extends Controller
     }
 
     public function deleteProduct(string $productslug){
+
         $product=Product::where('slug',$productslug)->first();
         $path=public_path().'\images\head_img\\'.$product->head_image;
         if(File::exists($path)){

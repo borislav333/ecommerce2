@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Category;
+use App\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -60,7 +61,15 @@ class AdminCategoryController
     }
 
     public function destroy($catSlug,Request $request){
-        $category=Category::where('slug',$catSlug);
+        $defaultCat=Category::where('slug','default')->first();
+       $category=Category::where('slug',$catSlug)->first();
+        $products=Product::where('category_id',$category->id)->get();
+        $category->products()->detach();
+        foreach ($products as $prod){
+            $prod->category_id=$defaultCat->id;
+            $prod->save();
+        }
+
         $category->delete();
         return redirect()->back();
     }
