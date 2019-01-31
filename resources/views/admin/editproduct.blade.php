@@ -65,7 +65,7 @@
                         <select name="brand" id="brand">
                             <option value="{{null}}">None</option>
                             @foreach(\App\Brand::all() as $brand)
-                                <option value="{{(int)$brand->id}}">{{$brand->name}}</option>
+                                <option value="{{(int)$brand->id}}" {{($product->brand_id===$brand->id) ? 'selected' : ''}}>{{$brand->name}}</option>
                             @endforeach
                         </select>
                     </div>

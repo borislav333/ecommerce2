@@ -171,6 +171,7 @@ class AdminController extends Controller
                 $product->head_image = $nameImg;
             }
             $product->save();
+
             $newCategoryProduct=new CategoryProduct(['category_id'=>$product->category_id,'product_id'=>$product->id]);
 
             $newCategoryProduct->save();

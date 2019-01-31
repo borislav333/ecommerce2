@@ -83,6 +83,7 @@ class FilterProductsController extends Controller
     //Filter products
     public function filterProducts(Request $request){
         $this->request=$request;
+
         $products=Product::whereHas('categories',function ($q){
             if((int)$this->request->parent_cat){
                 $q->where('category_id',(int)$this->request->parent_cat);

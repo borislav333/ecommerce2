@@ -48,8 +48,8 @@
                                 <div style="font-size: 13px;margin-left:30px;display: none;"  class="subcat-div">
                             @foreach($parent->children as $cat)
                                 <div>
-                                    <input type="radio" name="sub_cat" id="sub_cat" value="{{$cat->id}}" class="subcat-radio" {{--autocomplete="off"--}}>
-                                    <span id="subcat_name">{{$cat->name}}</span>
+                                    <input type="radio" name="sub_cat" id="sub_cat" value="{{$cat->id}}" class="subcat-radio hidden" autocomplete="off">
+                                    <span class="subcat_name">{{$cat->name}}</span>
                                 </div>
 
 
@@ -277,6 +277,7 @@
         $('.parent-label').each(function () {
 
             $(this).click(function () {
+
                 $('.subcat-radio').prop('checked',false);
                 sub_cat=null;
                 let parentDiv=$(this).parent().parent();
@@ -286,17 +287,25 @@
                 parentCat=parentDiv.find('#parent_cat').val();
 
 
-                parentDiv.find('#subcat_name').click(function () {
+               /* $('.subcat_name').click(function () {
+                    console.log($(this).prev('#sub_cat'))
                     parentCat=null;
                     $(this).prev('#sub_cat').prop('checked',true);
                     parentDiv.find('#parent_cat').prop('checked',true);
                     sub_cat=parentDiv.find('#sub_cat:checked').val();
                     ajaxFilter()
-                })
+                })*/
                 ajaxFilter()
             })
         })
-
+        $('.subcat_name').click(function () {
+            console.log($(this).prev('#sub_cat'))
+            parentCat=null;
+            $(this).prev('#sub_cat').prop('checked',true);
+            $(this).parent().parent().find('#parent_cat').prop('checked',true);
+            sub_cat=$(this).parent().parent().find('#sub_cat:checked').val();
+            ajaxFilter()
+        })
         $('#price-min,#price-max').change(function () {
             price_min=$('#price-min').val();
             price_max=$('#price-max').val();
