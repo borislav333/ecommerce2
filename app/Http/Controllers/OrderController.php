@@ -88,13 +88,15 @@ class OrderController extends Controller
             $order->state = $request->state;
             $order->phone_number = $request->phone_number;
             $order->email_address = $request->email_address;
-
+            if(auth()->user()){
+                $order->user_id=auth()->user()->id;
+            }
             $cart = session()->get('cart');
             $order->totalPrice = (double)$cart->totalPrice;
 
             $order->save();
             foreach ($cart->items as $item) {
-                $order->products()->attach($item['product']->id, ['product_price' => $item['productsPrice']]);
+                $order->products()->attach($item['product']->id, ['product_price' => $item['productsPrice'],'product_quantity'=>$item['productsQuantity']]);
                 $product = Product::where('id', $item['product']->id)->first();
                 $product->quantity -= $item['productsQuantity'];
                 $product->save();

@@ -9,11 +9,17 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Http\Controllers\Controller;
 use App\Order;
 use Illuminate\Http\Request;
 
-class AdminOrdersController
+class AdminOrdersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth','is_admin']);
+    }
+
     public function index(){
         $orders=Order::latest()->paginate(10);
 

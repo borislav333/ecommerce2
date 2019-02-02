@@ -10,13 +10,19 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Category;
+use App\Http\Controllers\Controller;
 use App\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class AdminCategoryController
+class AdminCategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth','is_admin']);
+    }
+
     public function index(){
         $categories=Category::latest()->orderBy('parent_id')->get();
         /*dd($categories);*/

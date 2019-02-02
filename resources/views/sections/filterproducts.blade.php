@@ -323,11 +323,11 @@
             ajaxFilter()
         });
 
-        $('.noUi-handle-lower,.noUi-handle-upper,#price-slider,.noUi-origin,.filter-section').on('click',function () {
+        $('.noUi-handle-lower,.noUi-handle-upper,#price-slider,.noUi-origin').on('click',function () {
             price_min=$('#price-min').val();
             price_max=$('#price-max').val();
             ajaxFilter()
-        })
+        });
 
     }
     window.addEventListener("load", filterProducts, false);

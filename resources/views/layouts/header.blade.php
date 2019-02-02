@@ -54,7 +54,13 @@
 
                 <li><a href="#"><i class="fa fa-dollar"></i>USD</a></li>
                 <li><a href="{{route('home')}}"><i class="fa fa-user-o"></i> My Account</a></li>
-                <a href="{{route('adminIndex')}}" class="btn btn-danger ">ADMIN PANEL</a>
+                @if(auth()->user())
+                    <a href="{{url('/logout')}}" class="btn btn-danger ">Logout</a>
+                    @elseif(auth()->user() && auth()->user()->is_admin)
+                    <a href="{{route('adminIndex')}}" class="btn btn-danger ">ADMIN PANEL</a>
+                @else
+                    <a href="{{route('home')}}" class="btn btn-danger ">Login</a>
+                @endif
             </ul>
         </div>
     </div>
