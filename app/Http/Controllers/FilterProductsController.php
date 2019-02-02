@@ -10,10 +10,11 @@ class FilterProductsController extends Controller
 {
     private $categorySlug=null;
     private $request;
+    private $path;
     public function index(){
         return view('sections.filterproducts');
     }
-    public function getProducts(Request $request){
+    public function getProductsLiveSearch(Request $request){
         if($request->select_category!==null){
             $products=Product::where('category_id',$request->select_category)->where('slug','like','%'.str_slug($request->search_product).'%')->take(5)->get();
         }
@@ -61,9 +62,10 @@ class FilterProductsController extends Controller
     public function liveSearchCategory($categorySlug){
         $this->categorySlug=$categorySlug;
 
-        $products=Product::latest()->whereHas('category',function($q){
+        $products=Product::latest()->whereHas('categories',function($q){
             $q->where('slug',$this->categorySlug);
         })->get();
+
         return view('sections.filterproducts',['products'=>$products]);
     }
     public function liveSearchProduct($productSlug){
@@ -93,9 +95,7 @@ class FilterProductsController extends Controller
         if((int)$request->sub_cat){
             $products->where('category_id',(int)$request->sub_cat);
         }
-        if($request->price_min && $request->price_max){
-            $products->whereBetween('price',[(float)$request->price_min,(float)$request->price_max]);
-        }
+
         $brands=[];
         if($request->brands){
             foreach ($request['brands'] as $k=>$val){
@@ -110,9 +110,16 @@ class FilterProductsController extends Controller
 
             }
         }
-
         $request['brands']=$brands;
+        if($request->price_min && $request->price_max){
+            $this->request=$request;
+            $products=$products->get()->filter(function ($val,$key){
+                return $val->newprice>=$this->request->price_min&&$val->newprice<=$this->request->price_max;
+            });
 
-        return view('ajax_view.ajaxFilterProd',['products'=>$products->get()]);
+            /*$products->with('newprice')->whereBetween('newprice',[(float)$request->price_min,(float)$request->price_max]);*/
+
+        }
+        return view('ajax_view.ajaxFilterProd',['products'=>$products]);
     }
 }

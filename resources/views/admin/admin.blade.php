@@ -92,3 +92,20 @@
         </p>
     </footer>
 </div>
+<script src="{{ asset('js/echo.js') }}"></script>
+
+<script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+<script>
+    let pusher = new Pusher('74741c4390df76a839af', {
+        encrypted: true
+    });
+
+    // Subscribe to the channel we specified in our Laravel Event
+    let channel = pusher.subscribe('ordered');
+
+    // Bind a function to a Event (the full Laravel class)
+    channel.bind('App\\Events\\newOrderNotification', function(data) {
+        // this is called when the event notification is received...
+        console.log('qqqqqqqqqwwwwwwwwwwww')
+    });
+</script>

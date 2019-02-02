@@ -57,7 +57,7 @@ Route::post('/checkout/process','OrderController@validateOrder')->name('orderVal
 Route::post('/checkout/removeCart','OrderController@removeCartItems')->name('removeCart');
 //Filter products
 /*Route::get('/search','FilterProductsController@index')->name('filterIndex');*/
-Route::get('/get/products','FilterProductsController@getProducts')->name('getProducts');
+Route::get('/get/products','FilterProductsController@getProductsLiveSearch')->name('getProducts');
 Route::post('/search','FilterProductsController@liveSearch')->name('liveSearch');
 Route::get('/search','FilterProductsController@liveSearchAll')->name('liveSearchAll');
 Route::get('/search/{categorySlug}','FilterProductsController@liveSearchCategory')->name('liveSearchCategory');

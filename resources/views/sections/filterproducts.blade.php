@@ -22,7 +22,7 @@
 <!-- /BREADCRUMB -->
 
 <!-- SECTION -->
-<div class="section">
+<div class="section filter-section">
     <!-- container -->
     <div class="container">
         <!-- row -->
@@ -306,7 +306,7 @@
             sub_cat=$(this).parent().parent().find('#sub_cat:checked').val();
             ajaxFilter()
         })
-        $('#price-min,#price-max').change(function () {
+        $('#price-min,#price-max').on('change keyup input',function () {
             price_min=$('#price-min').val();
             price_max=$('#price-max').val();
 
@@ -323,11 +323,12 @@
             ajaxFilter()
         });
 
-        $('.noUi-handle-lower,.noUi-handle-upper').on('click',function () {
+        $('.noUi-handle-lower,.noUi-handle-upper,#price-slider,.noUi-origin,.filter-section').on('click',function () {
             price_min=$('#price-min').val();
             price_max=$('#price-max').val();
             ajaxFilter()
         })
+
     }
     window.addEventListener("load", filterProducts, false);
 </script>
