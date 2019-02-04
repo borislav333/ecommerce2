@@ -1,4 +1,6 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<script src="{{ asset('js/app.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 {{--<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>--}}
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -60,7 +62,8 @@
                 <a href="{{route('createProductView')}}">Create new product</a>
             </li>
             <li class="{{ (\Illuminate\Support\Facades\Request::is('admin/orders')) ? 'active' : '' }}">
-                <a href="{{route('getOrders')}}">Orders <span style="background-color: red;border-radius: 5px;padding: 2px;color: white;">
+                <a href="{{route('getOrders')}}">Orders <span style="background-color: red;border-radius: 5px;padding: 2px;color: white;"
+                    id="order-span">
                         {{(\App\Order::where('dispatched',0)->count())}}</span>
                 </a>
             </li>
@@ -92,20 +95,22 @@
         </p>
     </footer>
 </div>
-<script src="{{ asset('js/echo.js') }}"></script>
+{{--<script src="{{ asset('js/echo.js') }}"></script>--}}
 
-<script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+{{--<script src="https://js.pusher.com/4.1/pusher.min.js"></script>--}}
+
 <script>
-    let pusher = new Pusher('74741c4390df76a839af', {
-        encrypted: true
-    });
+function testfunc() {
 
-    // Subscribe to the channel we specified in our Laravel Event
-    let channel = pusher.subscribe('ordered');
+    Echo.private('orderEventChannel').listen('newOrderNotification', (e) => {
 
-    // Bind a function to a Event (the full Laravel class)
-    channel.bind('App\\Events\\newOrderNotification', function(data) {
-        // this is called when the event notification is received...
-        console.log('qqqqqqqqqwwwwwwwwwwww')
-    });
+        let text=parseInt($('#order-span').text());
+        console.log(text)
+        $('#order-span').text(text+1);
+    })
+
+}
+        window.addEventListener("load", testfunc, false);
+
+
 </script>

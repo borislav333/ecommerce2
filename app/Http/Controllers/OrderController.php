@@ -109,6 +109,7 @@ class OrderController extends Controller
                     $message->from('testqkimov@yahoo.com', 'Support Ecommerce');
                 });
             }
+            event(new newOrderNotification($order));
             DB::commit();
         }
         catch (\Exception $e){
@@ -123,4 +124,8 @@ class OrderController extends Controller
         session()->forget('cart');
     }
 
+   /* public function broadcast(){
+        event(new newOrderNotification('event'));
+
+    }*/
 }

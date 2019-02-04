@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
     <!-- Bootstrap -->
+    <script src="{{ asset('js/app.js') }}"></script>
     <link type="text/css" rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}"/>
 
     <!-- Slick -->
@@ -36,6 +37,7 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     <![endif]-->
 
 </head>
@@ -201,12 +203,9 @@
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Hot Deals</a></li>
-                <li><a href="#">Categories</a></li>
-                <li><a href="#">Laptops</a></li>
-                <li><a href="#">Smartphones</a></li>
-                <li><a href="#">Cameras</a></li>
-                <li><a href="#">Accessories</a></li>
+                @foreach(\App\Category::where('parent_id',null)->get() as $cat)
+                    <li class=""><a href="#">{{$cat->name}}</a></li>
+                    @endforeach
             </ul>
             <!-- /NAV -->
         </div>

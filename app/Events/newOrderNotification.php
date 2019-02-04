@@ -14,13 +14,14 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 class newOrderNotification implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
     public $order;
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param $order
      */
-    public function __construct(Order $order)
+    public function __construct($order)
     {
         $this->order=$order;
     }
@@ -32,7 +33,7 @@ class newOrderNotification implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        /*return new PrivateChannel('admin1');*/
-        return ['ordered'];
+        return new PrivateChannel('orderEventChannel');
+       /* return ['orderEvent'];*/
     }
 }

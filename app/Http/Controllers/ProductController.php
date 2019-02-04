@@ -34,6 +34,12 @@ class ProductController extends Controller
 
         return view('ajax_view.homeprod',['products'=>$lastProducts]);
     }
+    public function getTopSellProdsByCategory(){
+        $catId=Input::get('catid');
+        $topSellProducts=Category::where('id',$catId)->first()->products()->withCount('orders')->orderBy('orders_count','DESC')->take(10)->get();
+
+        return view('ajax_view.homeTopSellProd',['products'=>$topSellProducts]);
+    }
 
     public function getCurrentProduct(string $categorySlug,string $productSlug){
         $categoryId=Category::where('slug',$categorySlug)->firstOrFail()->id;

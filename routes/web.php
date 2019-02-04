@@ -20,7 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/','ProductController@index')->name('index');
 Route::get('/homeprod/{cat}','ProductController@getNewProdsByCategory')->name('getNewProdsByCategory');
-
+Route::get('/homeprodtopsell','ProductController@getTopSellProdsByCategory')->name('getTopSellProdsByCategory');
+/*Route::get('/broadcast','OrderController@broadcast')->name('broadcast');*/
 Auth::routes();
 Route::get('/product/{category}/{product}','ProductController@getCurrentProduct')->name('getCurrentProduct');
 Route::post('/addbrand','Admin\AdminController@addNewBrand')->name('newBrand');
@@ -35,7 +36,7 @@ Route::post('/removeimg/{imgid}','Admin\AdminController@removeCurrentImage')->na
 Route::post('/positionupdate/{imgid}/{position}','Admin\AdminController@updatePosition')->name('updatePosition');
 Route::delete('/deleteproduct/{productslug}','Admin\AdminController@deleteProduct')->name('deleteProduct');
 
-Route::group(['middleware' => ['auth,is_admin']], function () {
+/*Route::group(['middleware' => ['auth,is_admin']], function () {*/
 //Admin Orders
     Route::get('/admin/orders', 'Admin\AdminOrdersController@index')->name('getOrders');
     Route::get('/admin/orders/search', 'Admin\AdminOrdersController@searchUserOrders')->name('getOrdersByUser');
@@ -46,7 +47,7 @@ Route::group(['middleware' => ['auth,is_admin']], function () {
     Route::post('/admin/category/create', 'Admin\AdminCategoryController@create')->name('createCategory');
     Route::patch('/admin/category/edit/{categorySlug}', 'Admin\AdminCategoryController@edit')->name('editCategory');
     Route::delete('/admin/category/remove/{categorySlug}', 'Admin\AdminCategoryController@destroy')->name('deleteCategory');
-});
+/*});*/
 /* End admin panel */
 
 Route::post('/cartadd/{prodId}','ProductController@addToCart')->name('addToCart');
@@ -71,3 +72,7 @@ Route::post('/filter','FilterProductsController@filterProducts')->name('filterPr
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -16,6 +16,6 @@ use Illuminate\Support\Facades\Broadcast;
 Broadcast::channel('App.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
-Broadcast::channel('admin1', function () {
+Broadcast::channel('orderEventChannel', function () {
     return true;
 });
