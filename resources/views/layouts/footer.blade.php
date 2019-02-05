@@ -1,4 +1,7 @@
 <!-- NEWSLETTER -->
+
+    @include('sections.chat')
+
 <div id="newsletter" class="section">
     <!-- container -->
     <div class="container">
@@ -127,6 +130,8 @@
         <!-- /container -->
     </div>
     <!-- /bottom footer -->
+
+
 </footer>
 <!-- /FOOTER -->
 

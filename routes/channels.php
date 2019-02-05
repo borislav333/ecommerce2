@@ -19,3 +19,6 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
 Broadcast::channel('orderEventChannel', function () {
     return true;
 });
+Broadcast::channel('Chat.{userId}', function () {
+    return true;
+});

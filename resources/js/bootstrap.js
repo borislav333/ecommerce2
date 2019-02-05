@@ -64,5 +64,5 @@ window.Echo = new Echo({
     broadcaster: 'pusher',
     key:'6c2267c5dd2cff8b48fb',
     cluster:'eu',
-    encrypted: true
+    encrypted: false
 });

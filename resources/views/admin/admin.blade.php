@@ -67,8 +67,12 @@
                         {{(\App\Order::where('dispatched',0)->count())}}</span>
                 </a>
             </li>
-            <li class="">
-                <a href="#">Link</a>
+            <li class="{{ (\Illuminate\Support\Facades\Request::is('admin/chat')) ? 'active' : '' }}">
+                <a href="{{route('adminChat')}}" id="chat-btn">Chat
+                    <span style="background-color: red;border-radius: 5px;padding: 2px;color: white;"
+                                                           id="order-span">
+                        0</span>
+                </a>
             </li>
 
         </ul>

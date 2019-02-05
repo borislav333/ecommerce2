@@ -21,7 +21,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/','ProductController@index')->name('index');
 Route::get('/homeprod/{cat}','ProductController@getNewProdsByCategory')->name('getNewProdsByCategory');
 Route::get('/homeprodtopsell','ProductController@getTopSellProdsByCategory')->name('getTopSellProdsByCategory');
-/*Route::get('/broadcast','OrderController@broadcast')->name('broadcast');*/
+
+Route::get('/broadcast','OrderController@broadcast')->name('broadcast');
+
 Auth::routes();
 Route::get('/product/{category}/{product}','ProductController@getCurrentProduct')->name('getCurrentProduct');
 Route::post('/addbrand','Admin\AdminController@addNewBrand')->name('newBrand');
@@ -30,11 +32,14 @@ Route::post('/createProduct/add','Admin\AdminController@addNewProduct')->name('a
 Route::get('/createProduct','Admin\AdminController@createProductView')->name('createProductView');
 Route::get('/admin','Admin\AdminController@index')->name('adminIndex');
 
+
 Route::get('/admin/product/{category}/{product}/edit','Admin\AdminController@editProductView')->name('editProduct');
 Route::post('/{category}/{product}/update','Admin\AdminController@updateProduct')->name('updateProduct');
 Route::post('/removeimg/{imgid}','Admin\AdminController@removeCurrentImage')->name('removeCurrentImage');
 Route::post('/positionupdate/{imgid}/{position}','Admin\AdminController@updatePosition')->name('updatePosition');
 Route::delete('/deleteproduct/{productslug}','Admin\AdminController@deleteProduct')->name('deleteProduct');
+//Admin Chat
+Route::get('/admin/chat','Admin\AdminChatController@index')->name('adminChat');
 
 /*Route::group(['middleware' => ['auth,is_admin']], function () {*/
 //Admin Orders
@@ -68,6 +73,10 @@ Route::get('/search/product/{productSlug}','FilterProductsController@liveSearchP
 Route::get('/search/catprod/{categorySlug}/{productSlug}','FilterProductsController@liveSearchCategoryProduct')->name('liveSearchCategoryProduct');
 
 Route::post('/filter','FilterProductsController@filterProducts')->name('filterProducts');
+// Chat
+Route::post('/sendMessage','ChatController@sendMessage')->name('sendMessage');
+
+
 
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');

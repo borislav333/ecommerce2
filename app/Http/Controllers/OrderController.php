@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ChatEvent;
 use App\Events\newOrderNotification;
 use App\Order;
 use App\Product;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
@@ -110,6 +113,7 @@ class OrderController extends Controller
                 });
             }
             event(new newOrderNotification($order));
+
             DB::commit();
         }
         catch (\Exception $e){
@@ -124,8 +128,10 @@ class OrderController extends Controller
         session()->forget('cart');
     }
 
-   /* public function broadcast(){
-        event(new newOrderNotification('event'));
+    public function broadcast(){
+        Input::get('message');
+        $user=User::where('id',1)->first();
+        event(new ChatEvent($user,'event'));
 
-    }*/
+    }
 }
